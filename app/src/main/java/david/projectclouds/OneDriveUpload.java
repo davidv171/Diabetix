@@ -51,16 +51,19 @@ public class OneDriveUpload {
         System.out.println("HIDDEN" + f.toURI());
         System.out.println("FileURI " + f.getAbsolutePath());
         System.out.println("STAY WOKE");
-        //context ni vedno instanca Activity
         if(context instanceof Activity){
             System.out.println("WE GUCCI");
 
             mSaver = Saver.createSaver(ONEDRIVE_APP_ID);
             if (Build.VERSION.SDK_INT > 22) {
+                //CONTENT:// FILE PATH TYPE, DOESNT WORK
+                //NOFILESPECIFIED TUKAJ
                 mSaver.startSaving((Activity) context, filename,FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",f));
 
             }
             else{
+                //FILE:// FILE PATH, WORKS ON ANDROID VERSIONS UNDER 7.0
+
                 mSaver.startSaving((Activity) context, filename, Uri.parse("file://" + f.getAbsolutePath()));
 
             }
