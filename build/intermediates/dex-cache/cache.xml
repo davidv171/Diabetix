@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/53271f900322b0a13f4bccb6dc7e7edb1f1b03c3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1941832901fc4e7a93300b53762e9f65d7650b99">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ba1b356ea78dc67d3a7844b6dafa8a5abe9af1dd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5e0226e488f9994443bbed78548deabf1cc9dd2a">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c20e58eaeca22cfb6bcdadee62aaaac6e92d6ef5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6f65c144283b31b4b9a70e6e7aa4c4a1c897d4b8">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e6acd1a8d5077784a1a7444559df0cf9aaa9fc03/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="42df48c7305b08b14fa0e84561091b0c24d70d26">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9582eb6a1320a6259631de5774a07941409e54e2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_0c7fa3008a568d39c5622dc96673a096c8385572/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/7d409aa7a529a2dedc16494e0b26054bb98713e3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="11262f887015dc774ff36eb66698308df0a376d1">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e6c896561511e81e95d08b25eee2d93b88549032/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7da84426d876216ed4cdddd85e739be5ecabdd04">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e14e1f6bd462cb6f051e7186002fe35b3365f25a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/69d726e53906545c185bbf6ed02cbe0e8e4d70ba/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cc178928721f3222b3b06bdfbd9497378ccb9792">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b610fa2829fce330b7fcfc99f954dc4d1af66f1b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4ef8ab5fee042023018249474bc93bd4b2b9c17e">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e0d47ebf072c197a6ab72552a504a4016d34f49b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/0a43f3146172c9ed7eb1bfdd3927e91dc587ee44/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7a23185c9b1c100e7d1a32275017e4712e31c796">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6636932f8a242799201737fac70be14705dd537c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ea4b54dcbfe5ac05efb0a314105f07258118d3a7">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4d50773c6666aa45b50eef44e242555dab7a16f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0dc8ab07eeceda5e99b305c8069765056b6e5c9d">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ed12baf92df4a2c116356a36d58271de4520fb9c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/david/.android/build-cache/74232930e4ff997d8f252969bf6300dfd11e746c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="294d49a66cc1238d9f7fd352136a45622fa98c0f">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9018185d70a76e353116d9eef5f9e609c862f918/classes.dex" />
+    </item>
+
+</items>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/gdrive"
+            android:icon="@drawable/ic_drivesvg"
+            android:title="Google Drive" />
+        <item
+            android:id="@+id/dropbox"
+            android:icon="@drawable/ic_dropboxsvg"
+            android:title="Dropbox" />
+        <item
+            android:id="@+id/odrive"
+            android:icon="@drawable/ic_onedrivesvg"
+            android:title="OneDrive" />
+        <item
+            android:id="@+id/stats"
+            android:icon="@drawable/ic_stats"
+            android:title="@string/statistika" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/bugReport" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_outline_black_24dp"
+                android:title="@string/about"/>
+        </menu>
+    </item>
+
+</menu>

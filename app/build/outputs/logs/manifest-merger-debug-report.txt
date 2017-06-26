@@ -1,0 +1,328 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:2:1-75:12
+	package
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:3:5-34
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:6:5-71
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:6:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:7:5-71
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:7:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:8:5-72
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:8:22-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:9:5-67
+MERGED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:21:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:21:5-67
+MERGED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:21:5-67
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:9:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:20:5-79
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:10:22-76
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:11:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:12:5-80
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:12:22-78
+application
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:13:5-73:19
+MERGED from [com.google.firebase:firebase-core:9.0.0] /home/david/.android/build-cache/7be8e685887afc9c9e6acc17554a479bee49824d/output/AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:26:5-41:19
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:26:5-41:19
+MERGED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:30:5-59:19
+MERGED from [com.android.support:design:25.2.0] /home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:25.2.0] /home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.2.0] /home/david/.android/build-cache/2924c14b7b57fdf9f165bd39f79b8d17a111b5fa/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:25.2.0] /home/david/.android/build-cache/58f3c4465b70379ea95b17971fc6daf60d5e29f5/output/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:transition:25.2.0] /home/david/.android/build-cache/95d5a42ad996d172a8b5daefbffba8d20558ae6b/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/david/.android/build-cache/3e5d79359f1440a8efb32ae36a367426cfbada62/output/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:20:5-32:19
+MERGED from [com.google.android.gms:play-services-drive:9.0.0] /home/david/.android/build-cache/74232930e4ff997d8f252969bf6300dfd11e746c/output/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-base:9.0.0] /home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:5:5-12:19
+MERGED from [com.google.android.gms:play-services-tasks:9.0.0] /home/david/.android/build-cache/53271f900322b0a13f4bccb6dc7e7edb1f1b03c3/output/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement:9.0.0] /home/david/.android/build-cache/69d726e53906545c185bbf6ed02cbe0e8e4d70ba/output/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:25.2.0] /home/david/.android/build-cache/5fdc3cc9e8d38fb3eea014c8e977269ed2454abd/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:25.2.0] /home/david/.android/build-cache/783c9470d0796450157de54292ba870f01078be3/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.2.0] /home/david/.android/build-cache/1c9d5ee64f8a60ffaa07bbcab2fd2a421681b8a3/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.2.0] /home/david/.android/build-cache/37734b2154883a2e7ebe6965c49a13ccd042cf4a/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.2.0] /home/david/.android/build-cache/d98c710a5145d47d7a950eadad618f5abc77867a/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:25.2.0] /home/david/.android/build-cache/dfe51c282c9f4661ba665d91c6a3303c74bcc8f3/output/AndroidManifest.xml:25:5-20
+	android:label
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:16:9-41
+	android:supportsRtl
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:18:9-35
+	android:roundIcon
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:17:9-48
+	android:allowBackup
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:14:9-35
+	android:icon
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:15:9-43
+provider#android.support.v4.content.FileProvider
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:19:9-28:20
+	android:authorities
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:21:13-67
+	android:grantUriPermissions
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:23:13-47
+	android:exported
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:22:13-37
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:20:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:25:13-27:49
+	android:resource
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:27:17-46
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:26:17-67
+meta-data#com.google.android.gms.version
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:29:9-31:69
+MERGED from [com.google.android.gms:play-services-basement:9.0.0] /home/david/.android/build-cache/69d726e53906545c185bbf6ed02cbe0e8e4d70ba/output/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:31:13-66
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:30:13-58
+meta-data#com.google.android.geo.API_KEY
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:32:9-34:71
+	android:value
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:34:13-68
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:33:13-58
+meta-data#com.google.app.id
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:35:9-37:104
+	android:value
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:37:13-101
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:36:13-45
+activity#david.projectclouds.MainActivity
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:39:9-48:20
+	android:label
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:41:13-45
+	android:theme
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:42:13-56
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:40:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:43:13-47:29
+action#android.intent.action.MAIN
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:44:17-69
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:44:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:46:17-77
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:46:27-74
+activity#david.projectclouds.DropboxAuthentication
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:49:9-57:20
+	android:label
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:51:13-74
+	android:theme
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:52:13-56
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:50:13-50
+intent-filter#android.intent.action.VIEW
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:53:13-56:29
+action#android.intent.action.VIEW
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:54:17-69
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:54:25-66
+activity#com.dropbox.core.android.AuthActivity
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:58:9-72:20
+	android:launchMode
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:61:13-44
+	android:configChanges
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:60:13-57
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:59:13-65
+intent-filter#android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:62:9-71:25
+data
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:65:13-57
+	android:scheme
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:65:19-54
+category#android.intent.category.BROWSABLE
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:69:13-74
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:69:23-71
+category#android.intent.category.DEFAULT
+ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:70:13-72
+	android:name
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:70:23-69
+uses-sdk
+INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.google.firebase:firebase-core:9.0.0] /home/david/.android/build-cache/7be8e685887afc9c9e6acc17554a479bee49824d/output/AndroidManifest.xml:4:5-42
+MERGED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:design:25.2.0] /home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.2.0] /home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.2.0] /home/david/.android/build-cache/2924c14b7b57fdf9f165bd39f79b8d17a111b5fa/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.2.0] /home/david/.android/build-cache/58f3c4465b70379ea95b17971fc6daf60d5e29f5/output/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:recyclerview-v7:25.2.0] /home/david/.android/build-cache/6224ea39f0e149c95ea9091fe2a0eeb237f71a14/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.2.0] /home/david/.android/build-cache/95d5a42ad996d172a8b5daefbffba8d20558ae6b/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/david/.android/build-cache/3e5d79359f1440a8efb32ae36a367426cfbada62/output/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-auth-base:9.0.0] /home/david/.android/build-cache/0a43f3146172c9ed7eb1bfdd3927e91dc587ee44/output/AndroidManifest.xml:5:5-43
+MERGED from [com.google.android.gms:play-services-drive:9.0.0] /home/david/.android/build-cache/74232930e4ff997d8f252969bf6300dfd11e746c/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:9.0.0] /home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/AndroidManifest.xml:18:5-42
+MERGED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:9.0.0] /home/david/.android/build-cache/53271f900322b0a13f4bccb6dc7e7edb1f1b03c3/output/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement:9.0.0] /home/david/.android/build-cache/69d726e53906545c185bbf6ed02cbe0e8e4d70ba/output/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:25.2.0] /home/david/.android/build-cache/5fdc3cc9e8d38fb3eea014c8e977269ed2454abd/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.2.0] /home/david/.android/build-cache/783c9470d0796450157de54292ba870f01078be3/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.2.0] /home/david/.android/build-cache/1c9d5ee64f8a60ffaa07bbcab2fd2a421681b8a3/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.2.0] /home/david/.android/build-cache/37734b2154883a2e7ebe6965c49a13ccd042cf4a/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.2.0] /home/david/.android/build-cache/d98c710a5145d47d7a950eadad618f5abc77867a/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.2.0] /home/david/.android/build-cache/dfe51c282c9f4661ba665d91c6a3303c74bcc8f3/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.microsoft.onedrivesdk:onedrive-picker-android:v2.0] /home/david/.android/build-cache/06da5bdd5f7cb7074f2392c77b8e2594309c37d5/output/AndroidManifest.xml:7:5-9:41
+MERGED from [com.intuit.sdp:sdp-android:1.0.4] /home/david/.android/build-cache/7d409aa7a529a2dedc16494e0b26054bb98713e3/output/AndroidManifest.xml:7:5-9:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.2.0] /home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+		INJECTED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:24:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:24:5-67
+MERGED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:22:5-68
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:24:22-65
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:28:7-34:18
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:28:7-34:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:30:11-33
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:29:11-83
+intent-filter#com.google.android.gms.measurement.UPLOAD
+ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:31:9-33:25
+action#com.google.android.gms.measurement.UPLOAD
+ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:32:11-77
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:32:19-75
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:36:7-39:37
+MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:36:7-39:37
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:38:11-33
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:39:11-35
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:37:11-82
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:23:5-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:23:22-79
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:25:5-26:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:26:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:25:17-71
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:28:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:28:22-76
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:32:9-41:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:34:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:35:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:33:13-78
+intent-filter#${applicationId}+com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:36:13-40:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:37:17-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:37:25-78
+action#com.google.android.c2dm.intent.REGISTRATION
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:38:17-86
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:38:25-83
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:39:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:39:27-58
+receiver#com.google.firebase.iid.FirebaseInstanceIdInternalReceiver
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:45:9-47:40
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:47:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:46:13-86
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:51:9-57:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:53:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:52:13-77
+intent-filter#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:54:13-56:29
+	android:priority
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:54:28-51
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:55:17-80
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:55:25-77
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:21:9-24:46
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:23:19-52
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:24:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:22:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:21:19-68
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:28:9-31:110
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:30:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:31:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:9.0.0] /home/david/.android/build-cache/ecdea68694590deec809d2d51ca54ca434c55bc7/output/AndroidManifest.xml:29:13-58
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:9.0.0] /home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:9.0.0] /home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:9.0.0] /home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:9.0.0] /home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/AndroidManifest.xml:20:19-85
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:7:9-11:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:8:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:10:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:11:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:9.0.0] /home/david/.android/build-cache/35e0350dd80d0797a6ac15bb6f4d95c1d7165fc5/output/AndroidManifest.xml:9:13-58

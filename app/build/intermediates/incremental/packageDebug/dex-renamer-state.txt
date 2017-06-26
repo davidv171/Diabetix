@@ -1,0 +1,7 @@
+#Mon Jun 26 17:01:50 CEST 2017
+base.0=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c20e58eaeca22cfb6bcdadee62aaaac6e92d6ef5
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_0c7fa3008a568d39c5622dc96673a096c8385572/classes.dex
+base.1=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_0c7fa3008a568d39c5622dc96673a096c8385572
+file.0=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c20e58eaeca22cfb6bcdadee62aaaac6e92d6ef5/classes.dex
