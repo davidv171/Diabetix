@@ -6,19 +6,19 @@
     density="xxhdpi"
     format="10"
     plugin-version="2.3.3"
-    timestamp="1498651157152"
+    timestamp="1498661550568"
     token="-5829832689815606677"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="95" />
+        duration="131" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="2" />
+        duration="14" />
     <task
         name="verifier"
         duration="1" />
@@ -29,7 +29,7 @@
 
     <build
         build-mode="FULL"
-        timestamp="1498650641819"
+        timestamp="1498660355727"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
@@ -70,7 +70,7 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1498651157152"
+        timestamp="1498661550568"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"

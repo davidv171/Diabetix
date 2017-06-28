@@ -82,6 +82,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -308,7 +309,13 @@ public class MainActivity extends AppCompatActivity
                                 case 0: downloadFromDrive();
                                     break;
                                 case 1:
-                                    da.downloadFromDropbox(getApplicationContext());
+
+                                    Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                                    chooseFile.setPackage("com.dropbox.android");
+                                    chooseFile.setType("*text/*");
+                                    chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+                                    startActivityForResult(chooseFile, 69);
+                                    //da.downloadFromDropbox(getApplicationContext());
                                     break;
                                 //UPORABIMO MAINACTIVITY.THIS KER KOT APPLICATIONCONTEXT NE PASSAMO ACTVITIY AMPAK APPLICATION
                                 case 2: oneDriveDownload.startFilePicker(MainActivity.this);
@@ -335,11 +342,7 @@ public class MainActivity extends AppCompatActivity
                             switch (which){
                                 case 0: uploadToDrive();
                                     break;
-                                //TODO: UPLOAD TO ONE DRIVE NOFILESPECIFIEDERROR
                                 case 1:
-
-
-
                                         Intent intent = new Intent(Intent.ACTION_SEND);
                                         intent.setType("text/*");
                                         intent.setPackage("com.dropbox.android");
@@ -354,7 +357,6 @@ public class MainActivity extends AppCompatActivity
 
                                     break;
                                 case 2:
-                                    //TODO: FIX URI CONTENT:///
                                     //oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , MainActivity.this,f);
                                     Intent intentOD = new Intent(Intent.ACTION_SEND);
                                     intentOD.setType("text/*");
@@ -465,6 +467,9 @@ public class MainActivity extends AppCompatActivity
         }
         //KODA SE IZVEDE VEDNO KO KONČAMO Z INTENTSENDERJEM(IZBIRA DATOTEK, TAKO PRI DOWNLOADU KOT PRI UPLOADU)
         //DOWNLOADFROMDRIVE
+        //GOOGLE DRIVE RQCODE = 2
+        //DROPBOX RQCODE = 69
+        //ONEDRIVE RQCODE = ??
         if(requestCode == 2){
 
                 try{
@@ -505,12 +510,27 @@ public class MainActivity extends AppCompatActivity
                 }
 
         }
+        if(requestCode ==69){
+            //TODO: USE THE INPUT STREAM
+            Intent intent = getIntent();
+            System.out.println("EXTRAS" + intent.getExtras());
+            System.out.println("DROPBOX DATA " + data.getData());
+            File file = new File(data.getData().toString());
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
         try {
             IPickerResult result = oneDriveDownload.getFilePicker().getPickerResult(requestCode, resultCode, data);
             // Handle the case if nothing was picked
+            Toast.makeText(getContext(),"Nothing was picked",Toast.LENGTH_SHORT);
             if (result != null) {
                 // Do something with the picked file
-
+                //TODO: DO SOMETHING WITH PICKED FILE
                 Log.d("main", "Link to file '" + result.getName() + ": " + result.getLink());
                 return;
             }
