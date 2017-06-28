@@ -14,6 +14,7 @@ import android.net.ParseException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.DropBoxManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -145,6 +147,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
 
     GlucoseDataOperations gdo = new GlucoseDataOperations();
+    private File f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +155,9 @@ public class MainActivity extends AppCompatActivity
         //SETUP RECYCLER VIEW
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         gdo.prepareGlucoseListData(recyclerView, MainActivity.this);
+
+        //USTVARIMO DATOTEKO
+        f = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
 
 
 
@@ -329,13 +335,34 @@ public class MainActivity extends AppCompatActivity
                             switch (which){
                                 case 0: uploadToDrive();
                                     break;
-                                //TODO: UPLOAD TO DROPBOX,UPLOAD TO ONE DRIVE
+                                //TODO: UPLOAD TO ONE DRIVE NOFILESPECIFIEDERROR
                                 case 1:
-                                    da.uploadToDropbox("<12-2-2017>6</12-2-2017>",getApplicationContext());
+
+
+
+                                        Intent intent = new Intent(Intent.ACTION_SEND);
+                                        intent.setType("text/*");
+                                        intent.setPackage("com.dropbox.android");
+
+                                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", f));
+                                        System.out.println("DROPBOX URI" + FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", f));
+                                        getContext().startActivity(Intent.createChooser(intent, "title"));
+                                        //ZAENKRAT DELA DROPBOX UPLOAD Z INTENTOM, ZAKAJ!????????
+                                        //da.uploadToDropbox("<12-2-2017>6</12-2-2017>", getApplicationContext());
+
+
                                     break;
                                 case 2:
+                                    //TODO: FIX URI CONTENT:///
+                                    //oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , MainActivity.this,f);
+                                    Intent intentOD = new Intent(Intent.ACTION_SEND);
+                                    intentOD.setType("text/*");
+                                    intentOD.setPackage("com.microsoft.skydrive");
 
-                                    oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , MainActivity.this);
+                                    intentOD.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", f));
+                                    getContext().startActivity(Intent.createChooser(intentOD, "title"));
 
                                     break;
                             }
@@ -626,7 +653,7 @@ public class MainActivity extends AppCompatActivity
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             REQUEST_WRITE_PERMISSIONS);
-                System.out.println("PERMISSION_GRANTED");
+                System.out.println("PERMISSIONS_GRANTED");
 
                 }
             } else {

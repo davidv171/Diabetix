@@ -30,10 +30,9 @@ import java.io.OutputStreamWriter;
 public class OneDriveUpload {
     private ISaver mSaver;
     private String ONEDRIVE_APP_ID = "afbdf902-f875-4c83-b37f-bc36e1db48de";
-    public void uploadToOneDrive(String content, Context context){
+    public void uploadToOneDrive(String content, Context context, File f){
 
         final String filename = "Temp.xml";
-             File f = new File(context.getExternalFilesDir("diabetix"),filename);
 
         try {
             FileOutputStream fos = new FileOutputStream(f);
@@ -58,12 +57,14 @@ public class OneDriveUpload {
             if (Build.VERSION.SDK_INT > 22) {
                 //CONTENT:// FILE PATH TYPE, DOESNT WORK
                 //NOFILESPECIFIED TUKAJ
+                System.out.println("CONTETN URI" + FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",f));
+
                 mSaver.startSaving((Activity) context, filename,FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",f));
 
             }
             else{
                 //FILE:// FILE PATH, WORKS ON ANDROID VERSIONS UNDER 7.0
-
+                System.out.println("FILE:// LUL");
                 mSaver.startSaving((Activity) context, filename, Uri.parse("file://" + f.getAbsolutePath()));
 
             }
@@ -86,4 +87,5 @@ public class OneDriveUpload {
             return null;
         }
     }
+
 }

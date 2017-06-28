@@ -1,9 +1,12 @@
 package david.projectclouds;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import com.dropbox.core.BadRequestException;
@@ -12,8 +15,12 @@ import com.dropbox.core.android.Auth;
 import com.dropbox.core.v2.files.WriteMode;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 
 /**
@@ -27,6 +34,7 @@ public class DropboxUpload extends AsyncTask {
     //NE VEM KAKO DOLGO TRAJA KLJUČ. 1 DAN NAJMANJ
     public DropboxUpload(Context context){
         this.context = context;
+
     }
 
     @Override
@@ -39,7 +47,11 @@ public class DropboxUpload extends AsyncTask {
             System.out.println("YOU NEED TO LOG IN");
         }
 
+        //7.0 DOESNT ALLOW UPLOAD USING INTENT
+        //TODO: FIX FILE URI FOR 7.0
+        if (Build.VERSION.SDK_INT > 22) {
         try {
+            System.out.println("IZVEDE SE TO");
             da.getClient(token).files().uploadBuilder("/Diabetix.xml").withMode(WriteMode.OVERWRITE).uploadAndFinish(is);
         } catch (DbxException e) {
             e.printStackTrace();
@@ -50,7 +62,12 @@ public class DropboxUpload extends AsyncTask {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
 
+        }
+        else{
+
+            System.out.println("INTENT");
 
         }
         return false;
