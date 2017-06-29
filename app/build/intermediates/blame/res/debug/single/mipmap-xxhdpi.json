@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/smile.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/mipmap-xxhdpi/smile.png"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     }

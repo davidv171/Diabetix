@@ -19,23 +19,7 @@ public class GlucoseData {
     private String concentration1;
     private String time1;
 
-    private String concentration2;
-    private String time2;
-    public String getConcentration2() {
-        return concentration2;
-    }
 
-    public void setConcentration2(String concentration2) {
-        this.concentration2 = concentration2;
-    }
-
-    public String getTime2() {
-        return time2;
-    }
-
-    public void setTime2(String time2) {
-        this.time2 = time2;
-    }
 
 
 
@@ -59,16 +43,20 @@ public class GlucoseData {
         this.concentration1 = concentration1;
     }
 
-    public GlucoseData(String date, String concentration1,String time1,String concentration2,String time2) {
+    public GlucoseData(String date, String concentration1,String time1) {
         this.date = date;
         this.concentration1 = concentration1;
         this.time1 = time1;
-        this.concentration2 = concentration2;
-        this.time2 = time2;
+
 
     }
 
+    public GlucoseData(String concentration1,String time1) {
+        this.concentration1 = concentration1;
+        this.time1 = time1;
 
+
+    }
 
     public String getDate(){
 

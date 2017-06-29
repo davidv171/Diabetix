@@ -24,9 +24,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +48,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dropbox.core.v2.DbxClientV2;
@@ -98,10 +103,40 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
+import static io.realm.RealmConfiguration.*;
+
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
+
+        //REALM SETUP
+     RealmConfiguration realmConfiguration= new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME).schemaVersion(0).build();
+
+
+
+
+
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    private MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
+
+
+
         private static final int RC_SIGN_IN = 15;
     private static final int RESOLVE_CONNECTION_REQUEST_CODE = 404;
     private static final String TAG = "d2";
@@ -135,8 +170,6 @@ public class MainActivity extends AppCompatActivity
     //TODO: STESTIRAJ ONEDRIVEDOWNLOAD
     OneDriveDownload oneDriveDownload = new OneDriveDownload();
     OneDriveUpload oneDriveUpload = new OneDriveUpload();
-    private String prevTime;
-    private String prevConcentration;
     private String concentration = null;
     private String time = null;
 
@@ -147,18 +180,30 @@ public class MainActivity extends AppCompatActivity
     //DRUGI IZ GLUCOSE_SUBROW
     private RecyclerView recyclerView;
 
-    GlucoseDataOperations gdo = new GlucoseDataOperations();
     private File f;
+    static final GlucoseDataOperations gdo = new GlucoseDataOperations();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //SETUP RECYCLER VIEW
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        gdo.prepareGlucoseListData(recyclerView, MainActivity.this);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(mSectionsPagerAdapter.getCount()-1);
+
+
+
 
         //USTVARIMO DATOTEKO
-        f = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+        if(!new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml").exists())
+        {
+            f = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+        }
 
 
 
@@ -209,10 +254,7 @@ public class MainActivity extends AppCompatActivity
                         //SET FUNCKIJA SE UPORABLJA, DA NE PODVAJAMO KONSTruKTORJEV, SAJ SE OSNOVNI UPORABI ZA KLIC FUNKCIJE ADDITEM
                         //SHRANJUJE SE LE PREJŠNJA VREDNOST
                         //MOŽNA BOLJŠA IMPLEMENTACIJA Z NEIZOGIBNO IMPLEMENTACIJO XML-a
-                       prevConcentration = concentration;
-                        prevTime = time;
-                        gdo.setPrevConcentration(concentration);
-                        gdo.setPrevTime(prevTime);
+
                         try{
                          concentration= (input.getText().toString());}
                         catch (ParseException e){
@@ -234,7 +276,7 @@ public class MainActivity extends AppCompatActivity
                         System.out.println("MESEC:" + mMonth);
                         int mDay = c.get(Calendar.DAY_OF_MONTH);
                         String date = gdo.dateAppender(mDay,mMonth,mYear);
-                       gdo.addItem(time,date,concentration);
+                       gdo.addItem(time,concentration);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -734,7 +776,82 @@ public class MainActivity extends AppCompatActivity
     public Context getContext(){
         return MainActivity.this;
     }
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        private RecyclerView recyclerView;
 
+        public PlaceholderFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static MainActivity.PlaceholderFragment newInstance(int sectionNumber) {
+            MainActivity.PlaceholderFragment fragment = new MainActivity.PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            //TODO: PRIKAŽI TABVIEW BAR
+            View rootView = inflater.inflate(R.layout.fragment_tab_view, container, false);
+            RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
+
+            gdo.prepareGlucoseListData(recyclerView,rootView.getContext());
+
+            return rootView;
+        }
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            return MainActivity.PlaceholderFragment.newInstance(position + 1);
+        }
+
+        @Override
+        public int getCount() {
+            // Show 2 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            System.out.println("POSITION"+ position);
+
+            switch (position) {
+                case 0:
+                    return "Yesterday";
+                case 1:
+                    return "Today";
+
+            }
+            return null;
+        }
+    }
 
 }
 

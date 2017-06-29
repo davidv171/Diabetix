@@ -1,4 +1,4 @@
-#Wed Jun 28 13:29:24 CEST 2017
+#Thu Jun 29 14:26:14 CEST 2017
 base.0=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c20e58eaeca22cfb6bcdadee62aaaac6e92d6ef5
 renamed.1=classes2.dex
 renamed.0=classes.dex

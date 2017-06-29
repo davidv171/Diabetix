@@ -1,13 +1,22 @@
 package david.projectclouds;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -16,28 +25,29 @@ import java.util.List;
 
 public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.MyViewHolder>{
     private List<GlucoseData>glucoseDataList;
+    //CONTEXT ENABLES AN ALERTBUILDER TO BE CREATED
+    //CONSTRUCTOR CALLED INSIDE GLUCOSEDATAOPERATIONS INSIDE THE METHOD PREPAREDATA
+
+    private Context context;
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView date;
         public TextView concentration1;
-        public TextView concentration2;
         public TextView time1;
-        public TextView time2;
+
 
 
         public MyViewHolder(View view){
             super(view);
-            date = (TextView)view.findViewById(R.id.Date);
             concentration1 = (TextView)view.findViewById(R.id.Concentration1);
-            concentration2 = (TextView)view.findViewById(R.id.Concentration2);
             time1 = (TextView)view.findViewById(R.id.Time1);
-            time2 = (TextView)view.findViewById(R.id.Time2);
+
 
         }
 
 
     }
-    public GlucoseDataAdapter(List<GlucoseData>glucoseDataList){
+    public GlucoseDataAdapter(List<GlucoseData>glucoseDataList,Context context){
         this.glucoseDataList = glucoseDataList;
+        this.context = context;
     }
 
     @Override
@@ -51,19 +61,96 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
     }
 
     @Override
-    public void onBindViewHolder(GlucoseDataAdapter.MyViewHolder holder, int position) {
-
-        GlucoseData glucoseData = glucoseDataList.get(position);
-            holder.date.setText(String.valueOf(glucoseData.getDate()));
+    public void onBindViewHolder(GlucoseDataAdapter.MyViewHolder holder, final int position) {
+            GlucoseData glucoseData = glucoseDataList.get(position);
             holder.concentration1.setText(glucoseData.getConcentration1());
             holder.time1.setText(glucoseData.getTime1());
-            holder.time2.setText(glucoseData.getTime2());
-            holder.concentration2.setText(glucoseData.getConcentration2());
+        //TODO: PONUDI MOŽNOST IZBRISA
+        //LONG CLICK ON CONCENTRATION OR TIME LETS YOU EDIT THOSE VALUES
+        //USING CLASS CONTEXT VARIABLE AND ONLONGCLICKS
+        //TODO: REARRANGE BASED ON TIME
+            holder.concentration1.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
 
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Edit concentration");
+
+// Set up the input
+                    final EditText input = new EditText(context);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                    input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    builder.setView(input);
+
+// Set up the buttons
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String newValue = input.getText().toString();
+                            glucoseDataList.get(position).setConcentration1(newValue);
+                            notifyDataSetChanged();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
+                    return true;
+            }
+
+
+        });
+        holder.time1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Edit time of input");
+
+// Set up the input
+                final EditText input = new EditText(context);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_DATETIME);
+                builder.setView(input);
+
+// Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newValue = input.getText().toString();
+                        glucoseDataList.get(position).setTime1(newValue);
+                        sortData();
+                        notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+                return true;
+            }
+
+
+        });
+
+    }
+public void sortData() {
+    Collections.sort(glucoseDataList, new Comparator<GlucoseData>() {
+        @Override
+        public int compare(GlucoseData o1, GlucoseData o2) {
+            return o1.getTime1().compareTo(o2.getTime1());
         }
+    });
 
-
-
+}
     @Override
     public int getItemCount() {
         return glucoseDataList.size();
