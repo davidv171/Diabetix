@@ -1,4 +1,4 @@
-#Wed Jun 28 13:32:04 CEST 2017
+#Thu Jun 29 16:19:11 CEST 2017
 file.9=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ed12baf92df4a2c116356a36d58271de4520fb9c/classes.dex
 base.10=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e0d47ebf072c197a6ab72552a504a4016d34f49b
 file.8=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9018185d70a76e353116d9eef5f9e609c862f918/classes.dex

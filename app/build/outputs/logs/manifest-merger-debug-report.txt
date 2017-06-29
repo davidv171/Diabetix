@@ -192,8 +192,6 @@ MERGED from [com.google.firebase:firebase-core:9.0.0] /home/david/.android/build
 MERGED from [com.google.firebase:firebase-analytics:9.0.0] /home/david/.android/build-cache/a0e11d0735af286a7fa95fe51869799727249171/output/AndroidManifest.xml:18:5-42
 MERGED from [com.google.firebase:firebase-analytics-impl:9.0.0] /home/david/.android/build-cache/31df1d59dfd074592dca18fcd867045d0471f0d7/output/AndroidManifest.xml:18:5-42
 MERGED from [com.google.firebase:firebase-iid:9.0.0] /home/david/.android/build-cache/2f8143d4f90a7538b6629d797208a518ab2421d2/output/AndroidManifest.xml:18:5-42
-MERGED from [io.realm:realm-android-library:3.3.1] /home/david/.android/build-cache/3ce9e5631754d71a3f8ac71f746ef35a2c03128b/output/AndroidManifest.xml:7:5-9:41
-MERGED from [com.getkeepsafe.relinker:relinker:1.2.2] /home/david/.android/build-cache/915771febc9ef5e1d13447dcf95bac93552e39fc/output/AndroidManifest.xml:7:5-43
 MERGED from [com.android.support:design:25.2.0] /home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:25.2.0] /home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:animated-vector-drawable:25.2.0] /home/david/.android/build-cache/2924c14b7b57fdf9f165bd39f79b8d17a111b5fa/output/AndroidManifest.xml:20:5-44

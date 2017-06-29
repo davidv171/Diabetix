@@ -103,18 +103,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
-import static io.realm.RealmConfiguration.*;
-
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
-        //REALM SETUP
-     RealmConfiguration realmConfiguration= new RealmConfiguration.Builder().name(Realm.DEFAULT_REALM_NAME).schemaVersion(0).build();
 
 
 
@@ -227,7 +220,28 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position!=mSectionsPagerAdapter.getCount()-1){
+                    fab.hide();
+                }
+                else{
+                    fab.show();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -810,7 +824,6 @@ public class MainActivity extends AppCompatActivity
             RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
 
             gdo.prepareGlucoseListData(recyclerView,rootView.getContext());
-
             return rootView;
         }
     }
