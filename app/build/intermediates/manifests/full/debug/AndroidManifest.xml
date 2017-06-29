@@ -85,14 +85,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="david.projectclouds.tabView"
-            android:label="@string/title_activity_tab_view"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="david.projectclouds.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
             android:name="com.google.android.gms.measurement.AppMeasurementReceiver"

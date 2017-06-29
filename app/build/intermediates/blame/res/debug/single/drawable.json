@@ -1,19 +1,19 @@
 [
     {
-        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
-        "source": "/home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/res/drawable/design_fab_background.xml"
-    },
-    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_seekbar_track_material.xml"
     },
     {
-        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
-        "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
+        "source": "/home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/res/drawable/design_fab_background.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_dark.xml",

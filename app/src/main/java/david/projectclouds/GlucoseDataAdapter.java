@@ -63,12 +63,11 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
     @Override
     public void onBindViewHolder(GlucoseDataAdapter.MyViewHolder holder, final int position) {
             GlucoseData glucoseData = glucoseDataList.get(position);
+
             holder.concentration1.setText(glucoseData.getConcentration1());
             holder.time1.setText(glucoseData.getTime1());
-        //TODO: PONUDI MOŽNOST IZBRISA
         //LONG CLICK ON CONCENTRATION OR TIME LETS YOU EDIT THOSE VALUES
         //USING CLASS CONTEXT VARIABLE AND ONLONGCLICKS
-        //TODO: REARRANGE BASED ON TIME
             holder.concentration1.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

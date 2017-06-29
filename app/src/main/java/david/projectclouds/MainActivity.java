@@ -121,13 +121,12 @@ public class MainActivity extends AppCompatActivity
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
+    private static MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
-
+    private static ViewPager mViewPager;
 
 
         private static final int RC_SIGN_IN = 15;
@@ -160,25 +159,18 @@ public class MainActivity extends AppCompatActivity
     //ZAENKRAT NE RABI NOBENE AVTENTIKACIJE
     //TUKAJ ZAŽENEMO FILE PICKERJA
     //V ON ACTIVITY RESULT PRIDOBIMO REZULTAT IZBIRE
-    //TODO: STESTIRAJ ONEDRIVEDOWNLOAD
     OneDriveDownload oneDriveDownload = new OneDriveDownload();
     OneDriveUpload oneDriveUpload = new OneDriveUpload();
     private String concentration = null;
     private String time = null;
 
     SharedPreferences sp;
-    //2 RECYCLERVIEWA, PRVI SE UPROABI LE ZA DATUM
-    //DRUGI SE UPROABI ZA ČAS IN KONCENTRACIJO GLUKOZE V KRVI
-    //PRVI IZHAJA IZ GLUCOSE_ROW
-    //DRUGI IZ GLUCOSE_SUBROW
-    private RecyclerView recyclerView;
-
     private File f;
     static final GlucoseDataOperations gdo = new GlucoseDataOperations();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -188,9 +180,8 @@ public class MainActivity extends AppCompatActivity
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(mSectionsPagerAdapter.getCount()-1);
-
-
-
+               //XML PARSING
+                System.out.println("ONCREATE");
 
         //USTVARIMO DATOTEKO
         if(!new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml").exists())
@@ -250,7 +241,6 @@ public class MainActivity extends AppCompatActivity
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Vpišite delež sladkorja");
-
 
                 final EditText input = new EditText(getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -563,6 +553,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
                 catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
 
         }
@@ -808,6 +799,7 @@ public class MainActivity extends AppCompatActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
+
         public static MainActivity.PlaceholderFragment newInstance(int sectionNumber) {
             MainActivity.PlaceholderFragment fragment = new MainActivity.PlaceholderFragment();
             Bundle args = new Bundle();
@@ -817,13 +809,42 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
+
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            //TODO: PRIKAŽI TABVIEW BAR
-            View rootView = inflater.inflate(R.layout.fragment_tab_view, container, false);
+
+            System.out.println("ONCREATE2");
+            final View rootView = inflater.inflate(R.layout.fragment_tab_view, container, false);
             RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
+            //TODO: PREPREČI DA SE TO IZVEDE 2X
+            //TODO: PRIDOBI TRENUTNI TAB IN GA DAJ V ARGUMENT PARSEXML
 
             gdo.prepareGlucoseListData(recyclerView,rootView.getContext());
+            final TextView date =(TextView) rootView.findViewById(R.id.Date);
+
+            date.setText(gdo.parseXML(rootView.getContext(),mViewPager.getCurrentItem()+1));
+            date.setText(gdo.parseXML(rootView.getContext(),mViewPager.getCurrentItem()+1));
+
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    System.out.println("position: " + position);
+                    date.setText(gdo.parseXML(rootView.getContext(),position+1));
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
+
+
             return rootView;
         }
     }
@@ -848,7 +869,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+
+            return 3;
         }
 
         @Override
