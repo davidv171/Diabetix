@@ -3,12 +3,16 @@ package david.projectclouds;
 import android.*;
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.ParseException;
 import android.net.Uri;
@@ -23,6 +27,7 @@ import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +52,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,6 +89,8 @@ import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.microsoft.onedrivesdk.picker.IPickerResult;
 import com.microsoft.onedrivesdk.saver.SaverException;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -97,11 +105,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity
@@ -121,13 +131,11 @@ public class MainActivity extends AppCompatActivity
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private static MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private static ViewPager mViewPager;
-
 
         private static final int RC_SIGN_IN = 15;
     private static final int RESOLVE_CONNECTION_REQUEST_CODE = 404;
@@ -165,29 +173,68 @@ public class MainActivity extends AppCompatActivity
     private String time = null;
 
     SharedPreferences sp;
-    private File f;
-    static final GlucoseDataOperations gdo = new GlucoseDataOperations();
+    private File file;
+   private GlucoseDataOperations gdo;
+
+   private RecyclerView recyclerView;
+    private TextView date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        gdo = new GlucoseDataOperations();
+        gdo.prepareGlucoseListData(recyclerView,getApplicationContext());
+        date = (TextView)findViewById(R.id.Date);
+        final Calendar mcurrentDate=Calendar.getInstance();
+        final int year=mcurrentDate.get(Calendar.YEAR);
+        final int month=mcurrentDate.get(Calendar.MONTH);
+        final int day=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+        System.out.println("DAY" + day);
+        final String currentDate = String.valueOf(day) +"." +  String.valueOf(month+1)+"." + String.valueOf(year);
+        gdo.parseXML(getApplicationContext(), currentDate);
+        date.setText(currentDate);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                //TODO: GET BACK HOME
+                final DatePickerDialog   mDatePicker =new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener()
+                {
+                    @Override
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday)
+                    {
+                        date.setText(new StringBuilder().append(selectedday).append(".").append(selectedmonth+1).append(".").append(selectedyear));
+                        String pickedDate = date.getText().toString();
+                        if(!pickedDate.equals(currentDate)){
+                            //TODO: SKRIJ FAB
+                            fab.hide();
+                        }
+                        else{
+                            fab.show();
+                        }
+                        gdo.parseXML(getApplicationContext(),pickedDate);
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+                    }
+                },year, month, day);
+                mDatePicker.setTitle("Please select date");
+                mDatePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+                System.out.println("ONCLICK CALLED");
 
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(mSectionsPagerAdapter.getCount()-1);
-               //XML PARSING
-                System.out.println("ONCREATE");
+                mDatePicker.show();
+            }
+        });
+
 
         //USTVARIMO DATOTEKO
-        if(!new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml").exists())
-        {
-            f = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
-        }
+
+            //f = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+
 
 
 
@@ -208,31 +255,9 @@ public class MainActivity extends AppCompatActivity
                 .enableAutoManage(this,1,null)
                 .build();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-                if(position!=mSectionsPagerAdapter.getCount()-1){
-                    fab.hide();
-                }
-                else{
-                    fab.show();
-                }
-            }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -268,7 +293,7 @@ public class MainActivity extends AppCompatActivity
                         final Calendar c = Calendar.getInstance();
                         String hour = (String.valueOf(c.get(Calendar.HOUR_OF_DAY)));
                         int minute = c.get(Calendar.MINUTE);
-                        if(String.valueOf(1000).length()==1){
+                        if(String.valueOf(minute).length()==1){
                            time = hour +":0" +  String.valueOf(minute);
 
                         }
@@ -281,6 +306,7 @@ public class MainActivity extends AppCompatActivity
                         int mDay = c.get(Calendar.DAY_OF_MONTH);
                         String date = gdo.dateAppender(mDay,mMonth,mYear);
                        gdo.addItem(time,concentration);
+                        gdo.addToXML(getContext(),date,concentration,time);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -306,6 +332,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         requestReadWritePermissions();
+        System.out.println("END OF ONCREATE");
     }
 
 
@@ -389,27 +416,38 @@ public class MainActivity extends AppCompatActivity
                                 case 0: uploadToDrive();
                                     break;
                                 case 1:
-                                        Intent intent = new Intent(Intent.ACTION_SEND);
-                                        intent.setType("text/*");
-                                        intent.setPackage("com.dropbox.android");
+                                    //USTVARIMO DATOTEKO
 
+                                        file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+
+                                    Uri uri = FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file);
+
+                                        Intent intent = new Intent(Intent.ACTION_SEND);
+                                        intent.setType("text/xml");
+                                        intent.setPackage("com.dropbox.android");
                                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", f));
-                                        System.out.println("DROPBOX URI" + FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", f));
+                                        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
+                                        System.out.println("DROPBOX URI" + FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
+
                                         getContext().startActivity(Intent.createChooser(intent, "title"));
-                                        //ZAENKRAT DELA DROPBOX UPLOAD Z INTENTOM, ZAKAJ!????????
+                                        //UPDATE: SPET NE DELA
                                         //da.uploadToDropbox("<12-2-2017>6</12-2-2017>", getApplicationContext());
 
 
                                     break;
                                 case 2:
-                                    //oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , MainActivity.this,f);
-                                    Intent intentOD = new Intent(Intent.ACTION_SEND);
-                                    intentOD.setType("text/*");
-                                    intentOD.setPackage("com.microsoft.skydrive");
 
+                                    //USTVARIMO DATOTEKO
+
+                                    //POMEMBNO, DA USTVARJAŠ FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+
+                                    ///oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , getContext(),file);
+                                    Intent intentOD = new Intent(Intent.ACTION_SEND);
+                                    intentOD.setType("text/xml");
+                                    intentOD.setPackage("com.microsoft.skydrive");
                                     intentOD.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", f));
+                                    intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
                                     getContext().startActivity(Intent.createChooser(intentOD, "title"));
 
                                     break;
@@ -591,6 +629,7 @@ public class MainActivity extends AppCompatActivity
         // check that the file was successfully saved to OneDrive
         try {
             oneDriveUpload.getSaver().handleSave(requestCode, resultCode, data);
+            System.out.println("ONE DRIVE DATA" + data);
         } catch (final SaverException e) {
             // Log error information
             e.printStackTrace();
@@ -781,112 +820,8 @@ public class MainActivity extends AppCompatActivity
     public Context getContext(){
         return MainActivity.this;
     }
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private RecyclerView recyclerView;
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-
-        public static MainActivity.PlaceholderFragment newInstance(int sectionNumber) {
-            MainActivity.PlaceholderFragment fragment = new MainActivity.PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-            System.out.println("ONCREATE2");
-            final View rootView = inflater.inflate(R.layout.fragment_tab_view, container, false);
-            RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
-            //TODO: PREPREČI DA SE TO IZVEDE 2X
-            //TODO: PRIDOBI TRENUTNI TAB IN GA DAJ V ARGUMENT PARSEXML
-
-            gdo.prepareGlucoseListData(recyclerView,rootView.getContext());
-            final TextView date =(TextView) rootView.findViewById(R.id.Date);
-
-            date.setText(gdo.parseXML(rootView.getContext(),mViewPager.getCurrentItem()+1));
-            date.setText(gdo.parseXML(rootView.getContext(),mViewPager.getCurrentItem()+1));
-
-            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    System.out.println("position: " + position);
-                    date.setText(gdo.parseXML(rootView.getContext(),position+1));
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
 
 
-
-            return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return MainActivity.PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 2 total pages.
-
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            System.out.println("POSITION"+ position);
-
-            switch (position) {
-                case 0:
-                    return "Yesterday";
-                case 1:
-                    return "Today";
-
-            }
-            return null;
-        }
-    }
 
 }
 

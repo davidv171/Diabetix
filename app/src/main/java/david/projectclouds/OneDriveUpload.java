@@ -30,12 +30,12 @@ import java.io.OutputStreamWriter;
 public class OneDriveUpload {
     private ISaver mSaver;
     private String ONEDRIVE_APP_ID = "afbdf902-f875-4c83-b37f-bc36e1db48de";
-    public void uploadToOneDrive(String content, Context context, File f){
+    public void uploadToOneDrive(String content, Context context, File file){
 
         final String filename = "Temp.xml";
 
         try {
-            FileOutputStream fos = new FileOutputStream(f);
+            FileOutputStream fos = new FileOutputStream(file);
             fos.write(content.getBytes());
             fos.flush();
             fos.close();
@@ -45,10 +45,7 @@ public class OneDriveUpload {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-        System.out.println("EXISTS" + f.exists());
-        System.out.println("MKDIRS" + f.canWrite());
-        System.out.println("HIDDEN" + f.toURI());
-        System.out.println("FileURI " + f.getAbsolutePath());
+
         System.out.println("STAY WOKE");
         if(context instanceof Activity){
             System.out.println("WE GUCCI");
@@ -57,15 +54,15 @@ public class OneDriveUpload {
             if (Build.VERSION.SDK_INT > 22) {
                 //CONTENT:// FILE PATH TYPE, DOESNT WORK
                 //NOFILESPECIFIED TUKAJ
-                System.out.println("CONTETN URI" + FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",f));
+                System.out.println("CONTETN URI" + FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",file));
 
-                mSaver.startSaving((Activity) context, filename,FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",f));
+                mSaver.startSaving((Activity) context, filename,FileProvider.getUriForFile(context,"david.projectclouds.MainActivity",file));
 
             }
             else{
                 //FILE:// FILE PATH, WORKS ON ANDROID VERSIONS UNDER 7.0
                 System.out.println("FILE:// LUL");
-                mSaver.startSaving((Activity) context, filename, Uri.parse("file://" + f.getAbsolutePath()));
+                mSaver.startSaving((Activity) context, filename, Uri.parse("file://" + file.getAbsolutePath()));
 
             }
         }
@@ -73,7 +70,7 @@ public class OneDriveUpload {
 
         System.out.println("mSAVE IN UPLOAD" + mSaver);
 
-        System.out.println("URI: " + Uri.fromFile(f).toString());
+        System.out.println("URI: " + Uri.fromFile(file).toString());
         //USTVARIMO SAMO TEMPORARRNI FILE IN GA NATO IZBRIŠEMO. PRED TEM VPIŠEMO V FILE CELOTEN XML(ALI KARKOLI PAČ BO)
         //IN GA NALOŽIMO NA ONE DRIVE
     }

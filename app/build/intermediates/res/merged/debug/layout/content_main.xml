@@ -9,10 +9,32 @@
     tools:showIn="@layout/app_bar_main">
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_20sdp"
+        android:paddingLeft="@dimen/_20sdp"
+        android:paddingTop="@dimen/_20sdp"
+        android:textAllCaps="true"
+        android:textColorLink="@color/colorAccent"
+        android:textSize="30sp"
+        android:typeface="sans"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:longClickable="false"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="@dimen/_20sdp"
+        android:paddingLeft="@dimen/_20sdp"
+
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/Date"
+        tools:layout_editor_absoluteX="0dp" />
 </android.support.constraint.ConstraintLayout>

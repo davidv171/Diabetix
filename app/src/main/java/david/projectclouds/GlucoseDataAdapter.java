@@ -62,8 +62,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
 
     @Override
     public void onBindViewHolder(GlucoseDataAdapter.MyViewHolder holder, final int position) {
-            GlucoseData glucoseData = glucoseDataList.get(position);
-
+            final GlucoseData glucoseData = glucoseDataList.get(position);
             holder.concentration1.setText(glucoseData.getConcentration1());
             holder.time1.setText(glucoseData.getTime1());
         //LONG CLICK ON CONCENTRATION OR TIME LETS YOU EDIT THOSE VALUES
@@ -122,6 +121,8 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                     public void onClick(DialogInterface dialog, int which) {
                         String newValue = input.getText().toString();
                         glucoseDataList.get(position).setTime1(newValue);
+                        System.out.println("GLUCOSEDATA LIST" + glucoseDataList.get(position));
+
                         sortData();
                         notifyDataSetChanged();
                     }
@@ -145,6 +146,8 @@ public void sortData() {
     Collections.sort(glucoseDataList, new Comparator<GlucoseData>() {
         @Override
         public int compare(GlucoseData o1, GlucoseData o2) {
+            System.out.println("o1" + o1.getTime1());
+            System.out.println("o2" + o2.getTime1());
             return o1.getTime1().compareTo(o2.getTime1());
         }
     });
