@@ -51,6 +51,7 @@ public class OneDriveUpload {
             System.out.println("WE GUCCI");
 
             mSaver = Saver.createSaver(ONEDRIVE_APP_ID);
+
             if (Build.VERSION.SDK_INT > 22) {
                 //CONTENT:// FILE PATH TYPE, DOESNT WORK
                 //NOFILESPECIFIED TUKAJ

@@ -30,5 +30,9 @@
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_dropboxsvg.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-hdpi/ic_dropboxsvg.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_cloud_upload_black_24dp.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-hdpi/ic_cloud_upload_black_24dp.png"
     }
 ]

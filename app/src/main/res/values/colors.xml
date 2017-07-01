@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#070f41</color>
     <color name="colorAccent">#FF4081</color>
     <color name="dateBlue">#0000ff</color>
     <color name="date">#999999</color>
     <color name="concentration">#222222</color>
+    <color name="primary_dark_material_dark">#5456a7</color>
 </resources>

@@ -183,13 +183,19 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         gdo = new GlucoseDataOperations();
-        gdo.prepareGlucoseListData(recyclerView,getApplicationContext());
+        gdo.prepareGlucoseListData(recyclerView,getContext());
         date = (TextView)findViewById(R.id.Date);
         final Calendar mcurrentDate=Calendar.getInstance();
         final int year=mcurrentDate.get(Calendar.YEAR);
@@ -203,7 +209,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                //TODO: GET BACK HOME
                 final DatePickerDialog   mDatePicker =new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener()
                 {
                     @Override
@@ -233,7 +238,6 @@ public class MainActivity extends AppCompatActivity
 
         //USTVARIMO DATOTEKO
 
-            //f = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
 
 
 
@@ -413,22 +417,38 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which){
-                                case 0: uploadToDrive();
+                                case 0:
+
+                                    FileInputStream fis = null;
+                                    try {
+                                        fis = new FileInputStream(new File(getContext().getExternalFilesDir("diabetix"),"Diabetix.xml"));
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                    InputStreamReader isr = new InputStreamReader(fis);
+                                    BufferedReader bufferedReader = new BufferedReader(isr);
+                                    StringBuilder sb = new StringBuilder();
+                                    String line;
+                                    try {
+                                        while ((line = bufferedReader.readLine()) != null) {
+                                            sb.append(line);
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    String content = sb.toString();
+                                    uploadToDrive(content);
                                     break;
                                 case 1:
                                     //USTVARIMO DATOTEKO
 
-                                        file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
 
-                                    Uri uri = FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file);
 
                                         Intent intent = new Intent(Intent.ACTION_SEND);
                                         intent.setType("text/xml");
                                         intent.setPackage("com.dropbox.android");
                                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                         intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-                                        System.out.println("DROPBOX URI" + FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-
                                         getContext().startActivity(Intent.createChooser(intent, "title"));
                                         //UPDATE: SPET NE DELA
                                         //da.uploadToDropbox("<12-2-2017>6</12-2-2017>", getApplicationContext());
@@ -440,9 +460,9 @@ public class MainActivity extends AppCompatActivity
                                     //USTVARIMO DATOTEKO
 
                                     //POMEMBNO, DA USTVARJAŠ FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                    file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
-
+                                   // file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
                                     ///oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , getContext(),file);
+                                    //OBČASNI PROblEMI Z NALAGANJEM NA ŠOLSKI ONE DRIVE; OSEBNI DELUJE OK??
                                     Intent intentOD = new Intent(Intent.ACTION_SEND);
                                     intentOD.setType("text/xml");
                                     intentOD.setPackage("com.microsoft.skydrive");
@@ -551,7 +571,7 @@ public class MainActivity extends AppCompatActivity
         }
         //KODA SE IZVEDE VEDNO KO KONČAMO Z INTENTSENDERJEM(IZBIRA DATOTEK, TAKO PRI DOWNLOADU KOT PRI UPLOADU)
         //DOWNLOADFROMDRIVE
-        //GOOGLE DRIVE RQCODE = 2
+        //GOOGLE DOWNLOADDRIVE RQCODE = 2
         //DROPBOX RQCODE = 69
         //ONEDRIVE RQCODE = ??
         if(requestCode == 2){
@@ -559,7 +579,6 @@ public class MainActivity extends AppCompatActivity
                 try{
                     mDriveID  = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
                     System.out.println("ONACTIVITY DRIVE ID " + mDriveID);
-                    //TODO: FILE SPRAVI V XML, NI POTREBNO SHRANJEVATI NA LOKALNI SPOMIN
                     DriveFile file = mDriveID.asDriveFile();
                     file.open(mGoogleApiClient,DriveFile.MODE_READ_ONLY,null).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
                         @Override
@@ -579,7 +598,8 @@ public class MainActivity extends AppCompatActivity
                                 String contentsAsString = builder.toString();
 
                                 System.out.println("VSEBINA:" + contentsAsString);
-
+                                gdo.writeToFile(contentsAsString);
+                                gdo.parseXML(getContext(),date.getText().toString());
                             }
                             else{
                                 System.out.println("FAIL");
@@ -595,20 +615,26 @@ public class MainActivity extends AppCompatActivity
                 }
 
         }
-        if(requestCode ==69){
+        if(requestCode==3){
+            System.out.println("gDRIVE UPLOAD DATA" + data);
+            System.out.println(resultCode);
+            if(resultCode==-1){
+                Toast.makeText(getContext(),"Google Drive upload successful",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(requestCode ==69) {
             //TODO: USE THE INPUT STREAM
             Intent intent = getIntent();
             System.out.println("EXTRAS" + intent.getExtras());
             System.out.println("DROPBOX DATA " + data.getData());
-            File file = new File(data.getData().toString());
-            try {
-                FileInputStream fileInputStream = new FileInputStream(file);
+            Uri uri = data.getData();
+            gdo.getContentsFromURI(uri,getContentResolver());
+            gdo.parseXML(getContext(),date.getText().toString());
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
 
         }
+
         try {
             IPickerResult result = oneDriveDownload.getFilePicker().getPickerResult(requestCode, resultCode, data);
             // Handle the case if nothing was picked
@@ -629,6 +655,9 @@ public class MainActivity extends AppCompatActivity
         // check that the file was successfully saved to OneDrive
         try {
             oneDriveUpload.getSaver().handleSave(requestCode, resultCode, data);
+            gdo.getContentsFromURI(data.getData(),getContentResolver());
+            gdo.parseXML(getContext(),date.getText().toString());
+
             System.out.println("ONE DRIVE DATA" + data);
         } catch (final SaverException e) {
             // Log error information
@@ -684,7 +713,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void uploadToDrive(){
+    public void uploadToDrive(final String content){
         Drive.DriveApi.newDriveContents(mGoogleApiClient)
             .setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
 
@@ -701,8 +730,7 @@ public class MainActivity extends AppCompatActivity
                     OutputStream outputStream = driveContents.getOutputStream();
                     Writer writer = new OutputStreamWriter(outputStream);
                     try {
-                        //DEJANSKA VREDNOST XML
-                        writer.write("Hello World!");
+                        writer.write(content);
                         writer.close();
                     } catch (IOException e) {
                         Log.e(TAG, e.getMessage());
@@ -713,7 +741,7 @@ public class MainActivity extends AppCompatActivity
 
                     IntentSender intentSender = Drive.DriveApi.newCreateFileActivityBuilder().setInitialMetadata(metadataChangeSet).setInitialDriveContents(driveContentsResult.getDriveContents()).build(mGoogleApiClient);
                     try{
-                        startIntentSenderForResult(intentSender,2,null,0,0,0);
+                        startIntentSenderForResult(intentSender,3,null,0,0,0);
 
                     } catch (IntentSender.SendIntentException e) {
                         e.printStackTrace();

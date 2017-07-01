@@ -67,6 +67,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
             holder.time1.setText(glucoseData.getTime1());
         //LONG CLICK ON CONCENTRATION OR TIME LETS YOU EDIT THOSE VALUES
         //USING CLASS CONTEXT VARIABLE AND ONLONGCLICKS
+        //TODO: V XMLU SPREMENI VRSTNI RED GLEDE NA ČAS, PRAV TAKO SPREMEMBE SHRANI V XML
             holder.concentration1.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

@@ -121,7 +121,7 @@ ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/Androi
 	android:label
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:41:13-45
 	android:theme
-		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:42:13-56
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:42:13-63
 	android:name
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:40:13-41
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
@@ -139,7 +139,7 @@ ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/Androi
 	android:label
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:51:13-74
 	android:theme
-		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:52:13-56
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:52:13-63
 	android:name
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:50:13-50
 intent-filter#android.intent.action.VIEW

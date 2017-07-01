@@ -55,7 +55,7 @@
         <activity
             android:name="david.projectclouds.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,7 +65,7 @@
         <activity
             android:name="david.projectclouds.DropboxAuthentication"
             android:label="@string/title_activity_dropbox_authentication"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxhdpi/ic_cloud_upload_black_24dp.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_cloud_upload_black_24dp.png"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxhdpi/ic_onedrivesvg.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_onedrivesvg.png"
     },
