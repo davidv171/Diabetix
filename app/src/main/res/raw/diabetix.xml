@@ -5,27 +5,23 @@
         <date date = "26.6.2017" concentration="4.5" time = "9:30"/>
         <date date = "26.6.2017" concentration="5.5" time = "15:30"/>
         <date date = "26.6.2017" concentration="6.5" time = "18:30"/>
-
-    </id>
-    <id id="2">
         <date date = "27.6.2017" concentration="4.2" time = "9:30"/>
         <date date = "27.6.2017" concentration="5.1" time = "15:30"/>
         <date date = "27.6.2017" concentration="6.6" time = "18:30"/>
 
-    </id>
-    <id id="3">
+
         <date date = "28.6.2017" concentration="5.5" time = "9:30"/>
         <date date = "28.6.2017" concentration="6.5" time = "15:30"/>
         <date date = "28.6.2017" concentration="9.5" time = "18:30"/>
-    </id>
-    <id id="4">
+
         <date date = "29.6.2017" concentration="2.5" time = "9:30"/>
         <date date = "29.6.2017" concentration="4.5" time = "15:30"/>
         <date date = "29.6.2017" concentration="10.5" time = "18:30"/>
-    </id>
-    <id id="5">
+
         <date date = "30.6.2017" concentration="2.5" time = "9:30"/>
         <date date = "30.6.2017" concentration="4.5" time = "15:30"/>
         <date date = "30.6.2017" concentration="10.5" time = "18:30"/>
     </id>
+
+
 </diabetix>

@@ -68,6 +68,7 @@ public class GlucoseDataOperations {
     private String lastID;
     private GlucoseDataAdapter mAdapter;
     private File file;
+    private Document doc;
     public GlucoseDataOperations(){
 
     }
@@ -90,10 +91,11 @@ public class GlucoseDataOperations {
     //FUNKCIJA ADD ITEM, KI JO KLIČEMO V MAINACTIVITY, KO SE PRITISNE GUMB FAB
     //PREVERI, ALI JE ZA TA DATUM ŽE DODAN KAKŠNA KONCENTRACIJA IN ČE JE, DODA NOVEGA
     //V PRIMERU DA STA ŽE DODANI DVE KONCENTRACIJI, SE PREMAKNE DRUGA NA MESTO PRVE, NA MESTO DRUGE PA PRIDE NOVA KONCENTRACIJA
-    public void addItem(String time, String concentration) {
+    public void addItem(String time, String concentration,String date) {
         //IMPORTING FROM XML WILL BE DONE THROUGH A DIFFERENT METHOD, WITH DATE AS AN ARGUMENT
-        GlucoseData glucoseData = new GlucoseData(concentration,time);
+        GlucoseData glucoseData = new GlucoseData(concentration,time,date);
         glucoseDataList.add(glucoseData);
+
         mAdapter.notifyDataSetChanged();
 
     }
@@ -105,6 +107,7 @@ public class GlucoseDataOperations {
 
 
     public void parseXML(Context context, String currentDate) {
+        System.out.println("PARSE XML " + currentDate);
         glucoseDataList.clear();
         this.file = new File(context.getExternalFilesDir("diabetix"),"Diabetix.xml");
 
@@ -179,11 +182,10 @@ public class GlucoseDataOperations {
                             glucose = myparser.getAttributeValue(null, "concentration");
                             time = myparser.getAttributeValue(null, "time");
 
-                            System.out.println("Data: " + id + " " + date + " " + glucose + " " + time);
-                            System.out.println("CURRENT DATE" + currentDate);
                             if(currentDate.equals(date)){
-                                System.out.println("CONNECTED" + date);
-                               addItem(time,glucose);
+                                System.out.println("EDIT NODE");
+                               addItem(time,glucose,currentDate);
+
                             }
 
 
@@ -202,6 +204,8 @@ public class GlucoseDataOperations {
                 }
 
             }
+            //VEDNO KO PREBEREMO PODATKE JIH TUDI SORTIRAMO
+            mAdapter.sortData();
 
 
 
@@ -234,7 +238,7 @@ public class GlucoseDataOperations {
             InputStream is = new FileInputStream(new File(context.getExternalFilesDir("diabetix"), "Diabetix.xml"));
 
             String domDate=null;
-            Document doc = parser.parse(is);
+            doc = parser.parse(is);
             Element root = doc.getDocumentElement();
             System.out.println("ROOT FIRST CHILD" + root.getNodeName());
             Node lastIDNode = root.getLastChild();
@@ -318,6 +322,11 @@ public class GlucoseDataOperations {
             ex.printStackTrace();
         }
     }
+
+
+
+
+
 public void deleteFile(){
    this.file.delete();
 }

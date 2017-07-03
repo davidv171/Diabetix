@@ -301,7 +301,15 @@ public class MainActivity extends AppCompatActivity
                            time = hour +":0" +  String.valueOf(minute);
 
                         }
-                        else {
+                        if(String.valueOf(hour).length()==1){
+                            time = "0" + hour + ": "+ String.valueOf(minute);
+                        }
+
+                        if(String.valueOf(hour).length()==1&&String.valueOf(minute).length()==1){
+                            time = "0" + hour  + ":" +"0" + String.valueOf(minute);
+
+                        }
+                        if(String.valueOf(hour).length()>1&&String.valueOf(minute).length()>1) {
                             time = hour + ":" + String.valueOf(minute);
                         }
                         int mYear = c.get(Calendar.YEAR);
@@ -309,7 +317,7 @@ public class MainActivity extends AppCompatActivity
                         System.out.println("MESEC:" + mMonth);
                         int mDay = c.get(Calendar.DAY_OF_MONTH);
                         String date = gdo.dateAppender(mDay,mMonth,mYear);
-                       gdo.addItem(time,concentration);
+                       gdo.addItem(time,concentration,date);
                         gdo.addToXML(getContext(),date,concentration,time);
                     }
                 });
@@ -500,7 +508,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.dropbox) {
               // OB KLIKU NA GUMB IZVEDEMO LOGIN SEKVENCO ZA DROPBOX
               // KER NAS DROPBOX LOGIN MINIMIRA IZ APLIKACIJE DOBIMO OAUTH2 TOKEN V ONRESUME
-
+                //TRENUTNO USELESS, KER REŠUJEMO Z INTENTI
                 da.dropboxLogin(this);
 
 
@@ -509,9 +517,17 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.odrive) {
+
         }  else if (id == R.id.stats){
 
         }  else if (id == R.id.nav_send) {
+              Intent intent = new Intent(Intent.ACTION_SEND);
+              intent.setType("message/rfc822");
+              intent.putExtra(Intent.EXTRA_EMAIL,"david.vuckovic7@gmail.com");
+              intent.putExtra(Intent.EXTRA_SUBJECT, "Reporting a bug");
+              intent.putExtra(Intent.EXTRA_TEXT, "Please describe the bug in as much detail as possible");
+              Intent mailer = Intent.createChooser(intent, null);
+              startActivity(mailer);
 
         }
             else if(id == R.id.nav_about){

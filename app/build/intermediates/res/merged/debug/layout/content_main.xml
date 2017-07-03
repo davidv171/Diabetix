@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,8 +13,6 @@
         android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
         android:paddingBottom="@dimen/_20sdp"
         android:paddingLeft="@dimen/_20sdp"
         android:paddingTop="@dimen/_20sdp"
@@ -27,14 +25,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:longClickable="false"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="@dimen/_20sdp"
-        android:paddingLeft="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Date"
+        android:scrollbars="vertical">
+        </android.support.v7.widget.RecyclerView>
 
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/Date"
-        tools:layout_editor_absoluteX="0dp" />
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

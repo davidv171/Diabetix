@@ -61,6 +61,13 @@ public class GlucoseData {
 
     }
 
+    GlucoseData(String concentration1, String time1,String date) {
+        this.concentration1 = concentration1;
+        this.time1 = time1;
+        this.date = date;
+
+
+    }
     public String getDate(){
 
         return this.date;
