@@ -202,9 +202,13 @@ public class MainActivity extends AppCompatActivity
         final int month=mcurrentDate.get(Calendar.MONTH);
         final int day=mcurrentDate.get(Calendar.DAY_OF_MONTH);
         System.out.println("DAY" + day);
-        final String currentDate = String.valueOf(day) +"." +  String.valueOf(month+1)+"." + String.valueOf(year);
+        String currentDate = String.valueOf(day) +"." +  String.valueOf(month+1)+"." + String.valueOf(year);
+
+
+        //TODO: KO SE PONOVNO IZVŠI ONCREATE OSTANI V ISTEM POGLEDU
         gdo.parseXML(getApplicationContext(), currentDate);
         date.setText(currentDate);
+        final String finalCurrentDate = currentDate;
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,8 +220,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         date.setText(new StringBuilder().append(selectedday).append(".").append(selectedmonth+1).append(".").append(selectedyear));
                         String pickedDate = date.getText().toString();
-                        if(!pickedDate.equals(currentDate)){
-                            //TODO: SKRIJ FAB
+                        if(!pickedDate.equals(finalCurrentDate)){
                             fab.hide();
                         }
                         else{

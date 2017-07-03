@@ -194,7 +194,6 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
 
     public void sortData() {
         //TODO: SORTIRAJ XML
-
        /* Collections.sort(glucoseDataList, new Comparator<GlucoseData>() {
             @Override
             public int compare(GlucoseData o1, GlucoseData o2) {
@@ -245,36 +244,76 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
             e.printStackTrace();
         }
         int j = 0;
+        int indexSortiranja=0;
+        Node rootXML = doc.getDocumentElement();
         NodeList allDates = doc.getElementsByTagName("date");
-        for (int i = 0; i < allDates.getLength() ; i++) {
-            Node oneDate = allDates.item(i);
-            System.out.println("CURRENT DATE" + currentDate);
-            System.out.println("CURRENT DATE ELEMENT" + ((Element) oneDate).getAttribute("date"));
-            System.out.println("EDIT NODE CONTENT");
-            System.out.println("DATE ELEMENT" + ((Element) oneDate).getAttribute("date"));
-            if (((Element) oneDate).getAttribute("date").equals(currentDate)) {
-                System.out.println("IN IF");
-                j++;
+        Node id = rootXML.getFirstChild();
+        System.out.println("NODE NAME" + rootXML.getFirstChild().getNodeName());
+        System.out.println("ID FIRST CHILD" + rootXML.getFirstChild().getFirstChild().getNodeName());
+        System.out.println("ROOT XML" + doc.getDocumentElement().getTagName());
+        System.out.println("IDXD "+ id.getFirstChild().getTextContent());
+        Node tempNode =null;
+        Node node = null;
+        ArrayList<GlucoseData>timeArraylist = new ArrayList<>();
 
-                if (j == 1) {
-                    Node node = allDates.item(i + index);
+        for(int i = 0;i< allDates.getLength();i++){
+            if(((Element) allDates.item(i)).getAttribute("date").equals(currentDate)){
+                //USTVARIMO POMOŽNI ARRAYLIST, GLEDE NA TE VREDNOSTI PONOVNO NAPIŠEMO RELEVANTNI DEL XML
 
-                    if(attribute.equals("time")){
-                        //TODO: SORT THE NEW ATTRIBUTE
-                        //PLAN:
-                        //NOVI NODE POSTAVI GLEDE NA VREDNOSTI GLUCOSELIST ČASOV
-                        //INSERT ZA TISTIM, KI IMA MANJŠI ČAS ALI INSERT PRED TISTIM, KI IMA VEČJI ČAS
-                        //allDates.item(i+index).appendChild();
-
-                    }
+                if(attribute.equals("concentration")) {
+                    System.out.println("INDEX V FOR" + i);
+                    node = allDates.item(i);
+                    //TODO: NODE NASTAVI NA TA PRVEGA
                     ((Element) node).setAttribute(attribute, newValue);
-
-                    System.out.println("ATRIBUTE" + attribute + " " + newValue);
                 }
-
-
+                if(attribute.equals("time")){
+                    node = allDates.item(i);
+                    GlucoseData nl = new GlucoseData(((Element) allDates.item(i)).getAttribute("concentration"),((Element) allDates.item(i)).getAttribute("time"),((Element) allDates.item(i)).getAttribute("date"));
+                    timeArraylist.add(nl);
+                    id.removeChild(node);
+                    System.out.println("IZBRIŠEM");
+                }
+                System.out.println("ATRIBUTE" + attribute + " " + newValue);
             }
         }
+
+        if(attribute.equals("time")){
+            timeArraylist.get(index).setTime1(newValue);
+
+            //TODO: SORT THE NEW ATTRIBUTE
+            //PLAN:
+            //NOVI NODE POSTAVI GLEDE NA VREDNOSTI GLUCOSELIST ČASOV
+            //INSERT ZA TISTIM, KI IMA MANJŠI ČAS ALI INSERT PRED TISTIM, KI IMA VEČJI ČAS
+            //allDates.item(i+index).appendChild();
+
+            for(int x  = 0; x<glucoseDataList.size();x++){
+                Collections.sort(timeArraylist, new Comparator<GlucoseData>() {
+                    @Override
+                    public int compare(GlucoseData o1, GlucoseData o2) {
+                        System.out.println("o1" + o1.getTime1());
+                        System.out.println("o2" + o2.getTime1());
+                        return o1.getTime1().compareTo(o2.getTime1());
+                    }
+                });
+                System.out.println("INDEX SORTIRANJA" + indexSortiranja);
+                System.out.println("time ARRAY LIST" + timeArraylist.toString());
+
+            }
+
+
+            for(int array=0;array<timeArraylist.size();array++) {
+                System.out.println("PIŠEM");
+
+                Element newChild = doc.createElement("date");
+                newChild.setAttribute("date", timeArraylist.get(array).getDate());
+                newChild.setAttribute("concentration", timeArraylist.get(array).getConcentration1());
+                newChild.setAttribute("time", timeArraylist.get(array).getTime1());
+
+                id.appendChild(newChild);
+                System.out.println("ZADNJI CHILD" + id.getLastChild().getAttributes().item(2).getTextContent());
+            }
+        }
+
         Transformer transformer = null;
         try {
             transformer = TransformerFactory.newInstance().newTransformer();

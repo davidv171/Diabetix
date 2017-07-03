@@ -118,6 +118,8 @@ ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/Androi
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:36:13-45
 activity#david.projectclouds.MainActivity
 ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:39:9-49:20
+	android:screenOrientation
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:43:13-49
 	android:label
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:41:13-45
 	android:theme
