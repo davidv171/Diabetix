@@ -76,11 +76,11 @@ MERGED from [com.android.support:support-compat:25.2.0] /home/david/.android/bui
 	android:supportsRtl
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:18:9-35
 	android:roundIcon
-		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:17:9-48
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:17:9-49
 	android:allowBackup
 		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:14:9-35
 	android:icon
-		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:15:9-43
+		ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:15:9-44
 provider#android.support.v4.content.FileProvider
 ADDED from /home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/AndroidManifest.xml:19:9-27:20
 	android:authorities

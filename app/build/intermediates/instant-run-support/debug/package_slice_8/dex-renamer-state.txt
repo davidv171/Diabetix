@@ -1,4 +1,4 @@
-#Fri Jun 30 17:39:45 CEST 2017
+#Tue Jul 04 20:50:12 CEST 2017
 base.0=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8
 renamed.0=classes.dex
 file.0=/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex

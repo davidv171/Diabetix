@@ -6,39 +6,39 @@
     density="xxhdpi"
     format="10"
     plugin-version="2.3.3"
-    timestamp="1499113069313"
+    timestamp="1499195218824"
     token="-5829832689815606677"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="82" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="3" />
+        duration="0" />
     <task
         name="verifier"
-        duration="1" />
+        duration="0" />
 
     <artifact
-        location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
-        type="SPLIT" />
+        location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/outputs/apk/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1499098692872"
+        timestamp="1499192784656"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
-            type="SPLIT" />
         <artifact
             location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/outputs/apk/app-debug.apk"
             type="SPLIT_MAIN" />
         <artifact
             location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
         <artifact
             location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
@@ -70,19 +70,28 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1499100554944"
+        timestamp="1499194209736"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1499195218824"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/outputs/apk/app-debug.apk"
             type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        timestamp="1499113069313"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
-            type="SPLIT" />
     </build>
 
 </instant-run>

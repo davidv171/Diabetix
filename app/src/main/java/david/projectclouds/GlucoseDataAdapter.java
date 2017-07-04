@@ -122,6 +122,9 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                         int mDay = c.get(Calendar.DAY_OF_MONTH);
                         String date = (String.valueOf(mDay) + "." + String.valueOf(mMonth) + "." + String.valueOf(mYear));
                         System.out.println("EDIT DATE" + date);
+                        if(!(glucoseDataList.get(0).getDate()==null)){
+                            date = glucoseDataList.get(0).getDate();
+                        }
                         editNode(position, newValue, "concentration", date);
                         notifyDataSetChanged();
                     }
@@ -170,6 +173,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                         if(!(glucoseDataList.get(0).getDate()==null)){
                             date = glucoseDataList.get(0).getDate();
                         }
+                        System.out.println("DATE V EDIT" + date);
                         editNode(position, newValue, "time", date);
 
                         sortData();
@@ -243,28 +247,32 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Z INDEXOM J POSKRBIMO DA SAMO ENKRAT NASTAVIMO VREDNOST NODE-A KO NASTAVLJAMO KONCENTRACIJO
         int j = 0;
-        int indexSortiranja=0;
+        //ROOT XML - > V XML-u ELEMENT DIABETIX, VSEBUJE SAMO ENEGA OTROKA-> ID
         Node rootXML = doc.getDocumentElement();
         NodeList allDates = doc.getElementsByTagName("date");
         Node id = rootXML.getFirstChild();
-        System.out.println("NODE NAME" + rootXML.getFirstChild().getNodeName());
-        System.out.println("ID FIRST CHILD" + rootXML.getFirstChild().getFirstChild().getNodeName());
-        System.out.println("ROOT XML" + doc.getDocumentElement().getTagName());
-        System.out.println("IDXD "+ id.getFirstChild().getTextContent());
-        Node tempNode =null;
+
         Node node = null;
         ArrayList<GlucoseData>timeArraylist = new ArrayList<>();
-
+        //Z INDEXOM DNEVA POSKRBIMO, DA ZA NAZAJ NE MOREMO SPREMINJATI KONCENTRACIJE
+        int indexDneva=0;
         for(int i = 0;i< allDates.getLength();i++){
             if(((Element) allDates.item(i)).getAttribute("date").equals(currentDate)){
                 //USTVARIMO POMOŽNI ARRAYLIST, GLEDE NA TE VREDNOSTI PONOVNO NAPIŠEMO RELEVANTNI DEL XML
 
                 if(attribute.equals("concentration")) {
-                    System.out.println("INDEX V FOR" + i);
-                    node = allDates.item(i);
-                    //TODO: NODE NASTAVI NA TA PRVEGA
-                    ((Element) node).setAttribute(attribute, newValue);
+                    //TODO SPREMENI ALGORITEM ZA CONCENTRATION EDIT
+                            System.out.println("TUKAJ SEM");
+                            node = allDates.item(i);
+                            GlucoseData nl = new GlucoseData(((Element) allDates.item(i)).getAttribute("concentration"),((Element) allDates.item(i)).getAttribute("time"),((Element) allDates.item(i)).getAttribute("date"));
+                            timeArraylist.add(nl);
+                            id.removeChild(node);
+
+
+
+
                 }
                 if(attribute.equals("time")){
                     node = allDates.item(i);
@@ -273,20 +281,17 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                     id.removeChild(node);
                     System.out.println("IZBRIŠEM");
                 }
-                System.out.println("ATRIBUTE" + attribute + " " + newValue);
             }
         }
+        if(attribute.equals("concentration")){
+            timeArraylist.get(index).setConcentration1(newValue);
 
-        if(attribute.equals("time")){
+        }
+        if(attribute.equals("time")) {
             timeArraylist.get(index).setTime1(newValue);
+        }
 
-            //TODO: SORT THE NEW ATTRIBUTE
-            //PLAN:
-            //NOVI NODE POSTAVI GLEDE NA VREDNOSTI GLUCOSELIST ČASOV
-            //INSERT ZA TISTIM, KI IMA MANJŠI ČAS ALI INSERT PRED TISTIM, KI IMA VEČJI ČAS
-            //allDates.item(i+index).appendChild();
-
-            for(int x  = 0; x<glucoseDataList.size();x++){
+            for (int x = 0; x < glucoseDataList.size(); x++) {
                 Collections.sort(timeArraylist, new Comparator<GlucoseData>() {
                     @Override
                     public int compare(GlucoseData o1, GlucoseData o2) {
@@ -295,13 +300,12 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                         return o1.getTime1().compareTo(o2.getTime1());
                     }
                 });
-                System.out.println("INDEX SORTIRANJA" + indexSortiranja);
                 System.out.println("time ARRAY LIST" + timeArraylist.toString());
 
             }
 
 
-            for(int array=0;array<timeArraylist.size();array++) {
+            for (int array = 0; array < timeArraylist.size(); array++) {
                 System.out.println("PIŠEM");
 
                 Element newChild = doc.createElement("date");
@@ -312,7 +316,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                 id.appendChild(newChild);
                 System.out.println("ZADNJI CHILD" + id.getLastChild().getAttributes().item(2).getTextContent());
             }
-        }
+
 
         Transformer transformer = null;
         try {

@@ -16,6 +16,6 @@
         android:orderInCategory="0"
         android:title="Upload"
         app:showAsAction="always"
-        android:icon="@drawable/ic_upload"
+        android:icon="@drawable/ic_cloud"
         />
 </menu>

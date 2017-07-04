@@ -4,8 +4,16 @@
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_dropboxsvg.png"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_glucose.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_glucose.png"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_cloud_upload_black_24dp.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_cloud_upload_black_24dp.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_time.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_time.png"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_drivesvg.png",
@@ -14,6 +22,10 @@
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_upload.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_upload.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_cloud.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_cloud.png"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_onedrivesvg.png",
@@ -30,5 +42,17 @@
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_stats.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_stats.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/clock.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/clock.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_glucosew.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_glucosew.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_glucose2.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-xxxhdpi/ic_glucose2.png"
     }
 ]

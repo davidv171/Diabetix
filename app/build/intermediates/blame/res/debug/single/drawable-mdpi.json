@@ -12,8 +12,20 @@
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_info_outline_black_24dp.png"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_time.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_time.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_cloud.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_cloud.png"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_upload.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_upload.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_glucose.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_glucose.png"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_action_name.png",
@@ -26,6 +38,14 @@
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_drivesvg.png",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_drivesvg.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_glucosew.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_glucosew.png"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_glucose2.png",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/generated/res/pngs/debug/drawable-mdpi/ic_glucose2.png"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_onedrivesvg.png",
