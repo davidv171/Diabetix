@@ -180,6 +180,10 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/layout/abc_action_menu_item_layout.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/layout/activity_graph.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/layout/activity_graph.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/layout/abc_alert_dialog_button_bar_material.xml"
     },

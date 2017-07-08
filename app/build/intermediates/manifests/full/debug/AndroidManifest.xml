@@ -86,6 +86,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="david.projectclouds.GraphActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+>
+        </activity>
 
         <receiver
             android:name="com.google.android.gms.measurement.AppMeasurementReceiver"

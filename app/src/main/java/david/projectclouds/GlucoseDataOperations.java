@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,7 +92,7 @@ public class GlucoseDataOperations {
     //FUNKCIJA ADD ITEM, KI JO KLIČEMO V MAINACTIVITY, KO SE PRITISNE GUMB FAB
     //PREVERI, ALI JE ZA TA DATUM ŽE DODAN KAKŠNA KONCENTRACIJA IN ČE JE, DODA NOVEGA
     //V PRIMERU DA STA ŽE DODANI DVE KONCENTRACIJI, SE PREMAKNE DRUGA NA MESTO PRVE, NA MESTO DRUGE PA PRIDE NOVA KONCENTRACIJA
-    public void addItem(String time, String concentration,String date) {
+    void addItem(String time, String concentration, String date) {
         //IMPORTING FROM XML WILL BE DONE THROUGH A DIFFERENT METHOD, WITH DATE AS AN ARGUMENT
         GlucoseData glucoseData = new GlucoseData(concentration,time,date);
         glucoseDataList.add(glucoseData);
@@ -100,13 +101,13 @@ public class GlucoseDataOperations {
 
     }
     //METODA S KATERO TRI INTEGERJE PRETVORIMO V STRING, PRIPRAVLJEN NA TEXTVIEW
-    public String dateAppender(int day, int month, int year){
+    String dateAppender(int day, int month, int year){
         String date = (String.valueOf(day) + "." + String.valueOf(month) + "." + String.valueOf(year));
         return date;
     }
 
 
-    public void parseXML(Context context, String currentDate) {
+    void parseXML(Context context, String currentDate) {
         System.out.println("PARSE XML " + currentDate);
         glucoseDataList.clear();
         this.file = new File(context.getExternalFilesDir("diabetix"),"Diabetix.xml");
@@ -210,7 +211,7 @@ public class GlucoseDataOperations {
 
 
     }
-    public void addToXML(Context context,String currentDate, String concentration, String time){
+    void addToXML(Context context, String currentDate, String concentration, String time){
         file = new File(context.getExternalFilesDir("diabetix"),"Diabetix.xml");
         try {
             //Create instance of DocumentBuilderFactory
@@ -289,7 +290,6 @@ public class GlucoseDataOperations {
                 } else {
                     //ČE NI NA SEZNAMU USTVARI NOVI ELEMENT Z LASTNIM ID-JEM, DATE-OM IN ATRIBUTI
                     //ČE JE PRAZNI SEZNAM DODAJ TO:
-                    //TODO: SOČASNO PREVERI ČE JE PRAZNI SEZNAM
                     Element newChild = doc.createElement("date");
                     newChild.setAttribute("date", currentDate);
                     newChild.setAttribute("concentration", concentration);
@@ -334,8 +334,7 @@ public void deleteFile(){
     //KO VSEBINO PREBEREMO AVTOMATSKO KLIČEMO METODO WRITETOFILE, KI PREBRANO VSEBINO NAPIŠE V NAŠO DATOTEKO DIABETIX.XML
     //GOOGLE DRIVE IMA ŽE DEFINIRANO METODO ZA PRIDOBITEV VSEBINE ZATO NAD GOOGLE DRIVEOM KLIČEMO LE WRITETOFILE
     //KO SE ZAKLJUČI WRITE TO FILE SE ŠE ENKRAT IZ MAIN ACTIVITY ZAŽENE PARSEXML, DA SE OSVEŽIJO PODATKI
-    //TODO: NAPAČNE XML-E NE SPREJMI
-public void getContentsFromURI(Uri uri, ContentResolver contentResolver){
+void getContentsFromURI(Uri uri, ContentResolver contentResolver, Context context){
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new InputStreamReader(contentResolver.openInputStream(uri)));
@@ -353,9 +352,35 @@ public void getContentsFromURI(Uri uri, ContentResolver contentResolver){
         }
         String contentsAsString = builder.toString();
         System.out.println(contentsAsString);
-        writeToFile(contentsAsString);
+        if(contentsAsString.contains("<diabetix>")) {
+            writeToFile(contentsAsString);
+        }
+        else{
+            Toast.makeText(context,"Wrong XML file", Toast.LENGTH_SHORT).show();
+        }
     }
-    public void writeToFile(String xml){
+    // ZA STARE VERZIJE
+    String returnFileContent(){
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        StringBuilder builder = new StringBuilder();
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String contentsAsString = builder.toString();
+        return contentsAsString;
+
+    }
+    void writeToFile(String xml){
         Writer writer = null;
         try {
             writer = new OutputStreamWriter(new FileOutputStream(this.file),"UTF-8");

@@ -56,6 +56,15 @@
         <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/pre-dexed/debug/jackson-core-2.7.4_3f2b3527322e4d15d8775cbed9edca605229fc26.jar" />
     </item>
     <item
+        is-multidex="true"
+        jar="/home/david/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.0.2/5d4eb08a326bdbd7fbbddc769666898c9936b282/MPAndroidChart-v3.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5d4eb08a326bdbd7fbbddc769666898c9936b282">
+        <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10/MPAndroidChart-v3.0.2_541d9312fb88a312e311cfce2057c00092ec4c8c/classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="/home/david/.android/build-cache/5fdc3cc9e8d38fb3eea014c8e977269ed2454abd/output/jars/classes.jar"
         jumboMode="false"
@@ -142,7 +151,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="419aa2692a68bc6bebae97cebeda27cd31c8427e">
+        sha1="c39c155792425c8cc446c5015e721192a5a2ee54">
         <dex dex="/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c20e58eaeca22cfb6bcdadee62aaaac6e92d6ef5/classes.dex" />
     </item>
     <item
