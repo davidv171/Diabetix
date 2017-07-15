@@ -220,6 +220,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
     //NEW VALUE JE NOVA VREDNOST ATRIBUTA
     //ATTRIBUTE NAM POVE KATERI ATTRIBUTE SMO SPREMENILI
     public void editNode(int index, String newValue, String attribute, String currentDate) {
+        MainActivity.xmlChanged++;
         Document doc = null;
         //Create instance of DocumentBuilderFactory
         DocumentBuilderFactory factory =

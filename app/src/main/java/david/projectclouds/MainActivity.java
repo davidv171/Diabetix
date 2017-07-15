@@ -174,6 +174,10 @@ public class MainActivity extends AppCompatActivity
 
     SharedPreferences sp;
     private File file;
+    //ŠTEVILO S KATERIM PREVERJAMO ALI SMO XML SPREMENILI
+    //xmlChanged++ SE IZVEDE V ALERTBUILDERJU V MAINACTIVITY(ADD BUTTON)
+    //IN TUDI V GLUCOSEDATAADAPTER IN SICER V METODI EDITNODE(TO SE IZVEDE VEDNO KO SPREMENIMO ENO ŠTEVILO)
+    static int xmlChanged=0;
    private GlucoseDataOperations gdo;
 
    private RecyclerView recyclerView;
@@ -268,69 +272,10 @@ public class MainActivity extends AppCompatActivity
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                //METODA S KATERO PRIKAŽEMO DIALOG ALERTBUILDERJA ZA VNOS ŠTEVILKE
+                createAddDialog();
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Vpišite delež sladkorja");
-
-                final EditText input = new EditText(getContext());
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER |
-                        InputType.TYPE_NUMBER_FLAG_DECIMAL |
-                        InputType.TYPE_NUMBER_FLAG_SIGNED);
-// Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //PREVCONCENTRATION IN PREVTIME STA SPREMENLJIVKI KI SLUŽITA KOT CACHE
-                        // V PRIMERU, DA V ISTI DAN SHRANIMO 2x ALI VEČKRAT KONCENTRACIJO, SE PREJŠNJA SHRANI
-                        //TO STORIMO ZATO, DA JO LAHKO PO DOMAČE PREMAKNEMO GOR
-                        //SET FUNCKIJA SE UPORABLJA, DA NE PODVAJAMO KONSTruKTORJEV, SAJ SE OSNOVNI UPORABI ZA KLIC FUNKCIJE ADDITEM
-                        //SHRANJUJE SE LE PREJŠNJA VREDNOST
-                        //MOŽNA BOLJŠA IMPLEMENTACIJA Z NEIZOGIBNO IMPLEMENTACIJO XML-a
-
-                        try{
-                         concentration= (input.getText().toString());}
-                        catch (ParseException e){
-                            Toast.makeText(getContext(),"Vpišite pravilne številke!",Toast.LENGTH_SHORT).show();
-                        }
-
-                        final Calendar c = Calendar.getInstance();
-                        String hour = (String.valueOf(c.get(Calendar.HOUR_OF_DAY)));
-                        int minute = c.get(Calendar.MINUTE);
-                        if(String.valueOf(minute).length()==1){
-                           time = hour +":0" +  String.valueOf(minute);
-
-                        }
-                        if(String.valueOf(hour).length()==1){
-                            time = "0" + hour + ": "+ String.valueOf(minute);
-                        }
-
-                        if(String.valueOf(hour).length()==1&&String.valueOf(minute).length()==1){
-                            time = "0" + hour  + ":" +"0" + String.valueOf(minute);
-
-                        }
-                        if(String.valueOf(hour).length()>1&&String.valueOf(minute).length()>1) {
-                            time = hour + ":" + String.valueOf(minute);
-                        }
-                        int mYear = c.get(Calendar.YEAR);
-                        int mMonth = c.get(Calendar.MONTH)+1;
-                        System.out.println("MESEC:" + mMonth);
-                        int mDay = c.get(Calendar.DAY_OF_MONTH);
-                        String date = gdo.dateAppender(mDay,mMonth,mYear);
-                       gdo.addItem(time,concentration,date);
-                        gdo.addToXML(getContext(),date,concentration,time);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
             }
         });
 
@@ -357,7 +302,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        if(xmlChanged!=0){
+            System.out.println("XMLCH" + xmlChanged);
+            Toast.makeText(getContext(),"You have unsaved changes, do you wish to backup?",Toast.LENGTH_SHORT).show();
+            createCloudChooser();
+            xmlChanged=0;
+
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -437,111 +390,7 @@ public class MainActivity extends AppCompatActivity
         }
         if (id == R.id.action_upload){
 
-            List<String> list = Arrays.asList("Google Drive", "Dropbox", "OneDrive");
-            CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-            System.out.println(Arrays.toString(cs));
-            new AlertDialog.Builder(this)
-                    .setTitle("Choose cloud service")
-                    .setItems(cs, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
-                                case 0:
-
-                                    FileInputStream fis = null;
-                                    try {
-                                        fis = new FileInputStream(new File(getContext().getExternalFilesDir("diabetix"),"Diabetix.xml"));
-                                    } catch (FileNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                    InputStreamReader isr = new InputStreamReader(fis);
-                                    BufferedReader bufferedReader = new BufferedReader(isr);
-                                    StringBuilder sb = new StringBuilder();
-                                    String line;
-                                    try {
-                                        while ((line = bufferedReader.readLine()) != null) {
-                                            sb.append(line);
-                                        }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    String content = sb.toString();
-                                    uploadToDrive(content);
-                                    break;
-                                case 1:
-                                    //USTVARIMO DATOTEKO
-                                    PackageManager pm = getPackageManager();
-
-                                    if (Build.VERSION.SDK_INT > 16) {
-
-                                        boolean dropboxInstalled = true;
-                                        try {
-                                            pm.getPackageInfo("com.dropbox.android", PackageManager.GET_ACTIVITIES);
-                                        } catch (PackageManager.NameNotFoundException e) {
-                                            //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
-                                            Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
-                                            Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                                            intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
-                                            getContext().startActivity(intentMP);
-
-                                        }
-                                        if (dropboxInstalled) {
-                                            Intent intent = new Intent(Intent.ACTION_SEND);
-                                            intent.setType("text/xml");
-                                            intent.setPackage("com.dropbox.android");
-                                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                            intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-                                            getContext().startActivity(Intent.createChooser(intent, "Upload to Dropbox"));
-                                        }
-                                    }
-                                    else{
-                                        da.uploadToDropbox(gdo.returnFileContent(), getApplicationContext());
-
-                                    }
-
-
-                                    break;
-                                case 2:
-                                    Toast.makeText(getContext(),"You can only upload to your personal account, not business account, thanks Microsoft",Toast.LENGTH_SHORT).show();
-                                    //USTVARIMO DATOTEKO
-
-                                    //POMEMBNO, DA USTVARJAŠ FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                   // file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
-                                    ///oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , getContext(),file);
-                                    //OBČASNI PROblEMI Z NALAGANJEM NA ŠOLSKI ONE DRIVE; OSEBNI DELUJE OK??
-                                    if (Build.VERSION.SDK_INT > 16) {
-
-                                        pm = getPackageManager();
-                                        boolean odInstalled = true;
-                                        try {
-                                            pm.getPackageInfo("com.microsoft.skydrive", PackageManager.GET_ACTIVITIES);
-                                        } catch (PackageManager.NameNotFoundException e) {
-                                            //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
-                                            Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
-                                            Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                                            intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.microsoft.skydrive")));
-                                            getContext().startActivity(intentMP);
-                                            odInstalled = false;
-                                        }
-                                        if (odInstalled) {
-                                            Intent intentOD = new Intent(Intent.ACTION_SEND);
-                                            intentOD.setType("text/xml");
-                                            intentOD.setPackage("com.microsoft.skydrive");
-                                            intentOD.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                            intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-                                            getContext().startActivity(Intent.createChooser(intentOD, "Upload to OneDrive"));
-                                        }
-                                    }
-                                    else{
-                                        oneDriveUpload.uploadToOneDrive(gdo.returnFileContent(),getContext(),file);
-                                    }
-                                    break;
-                            }
-                        }
-                    })
-
-                    .setIcon(android.R.drawable.ic_menu_info_details)
-                    .show();
+          createCloudChooser();
         }
 
         return super.onOptionsItemSelected(item);
@@ -600,6 +449,9 @@ public class MainActivity extends AppCompatActivity
                   pm.getPackageInfo("com.microsoft.skydrive",PackageManager.GET_ACTIVITIES);
               } catch (PackageManager.NameNotFoundException e) {
                   //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
+
+                  //TODO: VPELJI LOGIKO, KI UPORABNIKA PRIPELJE DIREKTNO DO ONEDRIVE DA SE LAHKO PRIJAVI ITD.
+                  //MOGOČI CRASHI!
                   Toast.makeText(getContext(),"OneDrive application missing", Toast.LENGTH_SHORT).show();
                   Intent intentMP = new Intent(Intent.ACTION_VIEW);
                   intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.microsoft.skydrive")));
@@ -958,7 +810,177 @@ public class MainActivity extends AppCompatActivity
     public Context getContext(){
         return MainActivity.this;
     }
+    public void createAddDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Vpišite delež sladkorja");
 
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER |
+                InputType.TYPE_NUMBER_FLAG_DECIMAL |
+                InputType.TYPE_NUMBER_FLAG_SIGNED);
+// Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //PREVCONCENTRATION IN PREVTIME STA SPREMENLJIVKI KI SLUŽITA KOT CACHE
+                // V PRIMERU, DA V ISTI DAN SHRANIMO 2x ALI VEČKRAT KONCENTRACIJO, SE PREJŠNJA SHRANI
+                //TO STORIMO ZATO, DA JO LAHKO PO DOMAČE PREMAKNEMO GOR
+                //SET FUNCKIJA SE UPORABLJA, DA NE PODVAJAMO KONSTruKTORJEV, SAJ SE OSNOVNI UPORABI ZA KLIC FUNKCIJE ADDITEM
+                //SHRANJUJE SE LE PREJŠNJA VREDNOST
+                //MOŽNA BOLJŠA IMPLEMENTACIJA Z NEIZOGIBNO IMPLEMENTACIJO XML-a
+
+                try{
+                    concentration= (input.getText().toString());}
+                catch (ParseException e){
+                    Toast.makeText(getContext(),"Vpišite pravilne številke!",Toast.LENGTH_SHORT).show();
+                }
+
+                final Calendar c = Calendar.getInstance();
+                String hour = (String.valueOf(c.get(Calendar.HOUR_OF_DAY)));
+                int minute = c.get(Calendar.MINUTE);
+                if(String.valueOf(minute).length()==1){
+                    time = hour +":0" +  String.valueOf(minute);
+
+                }
+                if(String.valueOf(hour).length()==1){
+                    time = "0" + hour + ": "+ String.valueOf(minute);
+                }
+
+                if(String.valueOf(hour).length()==1&&String.valueOf(minute).length()==1){
+                    time = "0" + hour  + ":" +"0" + String.valueOf(minute);
+
+                }
+                if(String.valueOf(hour).length()>1&&String.valueOf(minute).length()>1) {
+                    time = hour + ":" + String.valueOf(minute);
+                }
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH)+1;
+                System.out.println("MESEC:" + mMonth);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                String date = gdo.dateAppender(mDay,mMonth,mYear);
+                xmlChanged++;
+                gdo.addItem(time,concentration,date);
+                gdo.addToXML(getContext(),date,concentration,time);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+    public void createCloudChooser(){
+        List<String> list = Arrays.asList("Google Drive", "Dropbox", "OneDrive");
+        CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+        System.out.println(Arrays.toString(cs));
+        new AlertDialog.Builder(this)
+                .setTitle("Choose cloud service")
+                .setItems(cs, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+
+                                FileInputStream fis = null;
+                                try {
+                                    fis = new FileInputStream(new File(getContext().getExternalFilesDir("diabetix"),"Diabetix.xml"));
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                InputStreamReader isr = new InputStreamReader(fis);
+                                BufferedReader bufferedReader = new BufferedReader(isr);
+                                StringBuilder sb = new StringBuilder();
+                                String line;
+                                try {
+                                    while ((line = bufferedReader.readLine()) != null) {
+                                        sb.append(line);
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                String content = sb.toString();
+                                uploadToDrive(content);
+                                break;
+                            case 1:
+                                //USTVARIMO DATOTEKO
+                                PackageManager pm = getPackageManager();
+
+                                if (Build.VERSION.SDK_INT > 16) {
+
+                                    boolean dropboxInstalled = true;
+                                    try {
+                                        pm.getPackageInfo("com.dropbox.android", PackageManager.GET_ACTIVITIES);
+                                    } catch (PackageManager.NameNotFoundException e) {
+                                        //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
+                                        Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
+                                        Intent intentMP = new Intent(Intent.ACTION_VIEW);
+                                        intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
+                                        getContext().startActivity(intentMP);
+
+                                    }
+                                    if (dropboxInstalled) {
+                                        Intent intent = new Intent(Intent.ACTION_SEND);
+                                        intent.setType("text/xml");
+                                        intent.setPackage("com.dropbox.android");
+                                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
+                                        getContext().startActivity(Intent.createChooser(intent, "Upload to Dropbox"));
+                                    }
+                                }
+                                else{
+                                    da.uploadToDropbox(gdo.returnFileContent(), getApplicationContext());
+
+                                }
+
+
+                                break;
+                            case 2:
+                                Toast.makeText(getContext(),"You can only upload to your personal account, not business account, thanks Microsoft",Toast.LENGTH_SHORT).show();
+                                //USTVARIMO DATOTEKO
+
+                                //POMEMBNO, DA USTVARJAŠ FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                // file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
+                                ///oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , getContext(),file);
+                                //OBČASNI PROblEMI Z NALAGANJEM NA ŠOLSKI ONE DRIVE; OSEBNI DELUJE OK??
+                                if (Build.VERSION.SDK_INT > 16) {
+
+                                    pm = getPackageManager();
+                                    boolean odInstalled = true;
+                                    try {
+                                        pm.getPackageInfo("com.microsoft.skydrive", PackageManager.GET_ACTIVITIES);
+                                    } catch (PackageManager.NameNotFoundException e) {
+                                        //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
+                                        Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
+                                        Intent intentMP = new Intent(Intent.ACTION_VIEW);
+                                        intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.microsoft.skydrive")));
+                                        getContext().startActivity(intentMP);
+                                        odInstalled = false;
+                                    }
+                                    if (odInstalled) {
+                                        Intent intentOD = new Intent(Intent.ACTION_SEND);
+                                        intentOD.setType("text/xml");
+                                        intentOD.setPackage("com.microsoft.skydrive");
+                                        intentOD.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
+                                        getContext().startActivity(Intent.createChooser(intentOD, "Upload to OneDrive"));
+                                    }
+                                }
+                                else{
+                                    oneDriveUpload.uploadToOneDrive(gdo.returnFileContent(),getContext(),file);
+                                }
+                                break;
+                        }
+                    }
+                })
+
+                .setIcon(android.R.drawable.ic_menu_info_details)
+                .show();
+    }
 
 
 }

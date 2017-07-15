@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_150sdp"
+                android:layout_marginLeft="@dimen/_180sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 />
         </TableRow>
