@@ -11,10 +11,10 @@ import com.microsoft.onedrivesdk.picker.Picker;
  * Created by david on 29.5.2017.
  */
 
-public class OneDriveDownload {
+class OneDriveDownload {
     private IPicker mPicker;
     private String ONEDRIVE_APP_ID = "afbdf902-f875-4c83-b37f-bc36e1db48de";
-    public void startFilePicker(Context context){
+    void startFilePicker(Context context){
         mPicker = Picker.createPicker(ONEDRIVE_APP_ID);
        // mPicker.startPicking((Activity)context, LinkType.WebViewLink);
         mPicker.startPicking((Activity)context,LinkType.WebViewLink);
@@ -29,6 +29,5 @@ public class OneDriveDownload {
             return null;
         }
     }
-    //TODO: GET RESULT FROM FILE PICKER
 
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.dropbox.core.BadRequestException;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.android.Auth;
+import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.WriteMode;
 
 import java.io.ByteArrayInputStream;
@@ -27,12 +28,10 @@ import java.io.OutputStream;
  * Created by david on 15.5.2017.
  */
 
-public class DropboxUpload extends AsyncTask {
-    DropboxAuthentication da = new DropboxAuthentication();
-    Context context;
-    //TODO: ROBUSTNOST UPLOADANJA, V PRIMERU, DA NE USPE UPLOAD(POTEČEN KLJUČ), APLIKACIJA NE SPOROČI UPORABNIKU
-    //NE VEM KAKO DOLGO TRAJA KLJUČ. 1 DAN NAJMANJ
-    public DropboxUpload(Context context){
+class DropboxUpload extends AsyncTask {
+    private DropboxAuthentication da = new DropboxAuthentication();
+    private Context context;
+    DropboxUpload(Context context){
         this.context = context;
 
     }
@@ -43,16 +42,15 @@ public class DropboxUpload extends AsyncTask {
         SharedPreferences sp = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
         String token = sp.getString("dropbox-token","");
         System.out.println("TOKEN" + token + " OAUTH2TOKEN" + da.getOAuth2Token() );
-        if(token==null){
+        if(token==""){
             System.out.println("YOU NEED TO LOG IN");
         }
 
         //7.0 DOESNT ALLOW UPLOAD USING INTENT
-        //TODO: FIX FILE URI FOR 7.0
         if (Build.VERSION.SDK_INT > 22) {
         try {
             System.out.println("IZVEDE SE TO");
-            da.getClient(token).files().uploadBuilder("/Diabetix.xml").withMode(WriteMode.OVERWRITE).uploadAndFinish(is);
+             DropboxAuthentication.getClient(token).files().uploadBuilder("/Diabetix.xml").withMode(WriteMode.OVERWRITE).uploadAndFinish(is);
         } catch (DbxException e) {
             e.printStackTrace();
             System.out.println("Error uploading");

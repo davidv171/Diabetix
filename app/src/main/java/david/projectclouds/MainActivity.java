@@ -118,24 +118,15 @@ public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
+        private int ONEDRIVEUPLOAD = 1;
+        private int DROPBOXUPLOAD = 2;
+        private int GOOGLEDRIVEUPLOAD = 3;
+        private int ONEDRIVEDOWNLOAD = 4;
+        private int DROPBOXDOWNLOAD = 5;
+        private int GOOGLEDRIVEDOWNLOAD = 6;
+        private int GOOGLEERRORRESULT = 7;
+        private int GOOGLEERRORREQUEST = 8;
 
-
-
-
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private static ViewPager mViewPager;
 
         private static final int RC_SIGN_IN = 15;
     private static final int RESOLVE_CONNECTION_REQUEST_CODE = 404;
@@ -149,9 +140,7 @@ public class MainActivity extends AppCompatActivity
     GoogleApiClient mGoogleApiClient;
     GoogleApiClient mGoogleSignInApiClient;
     private String fileName = "DiabetixBackup.txt";
-    private static final int REQUEST_CODE_OPENER = 4;
-    private DriveId mDriveID=null;
-        //RAZRED DROPBOXAUTHENTICATION, KI VSEBUJE METODO ZA DROPBOX LOGIN
+    //RAZRED DROPBOXAUTHENTICATION, KI VSEBUJE METODO ZA DROPBOX LOGIN
         // POLEK LOGINA DOBI METODA ONRESUME ACCESSTOKEN!!!
         //KO SE ZAČNE DROPBOXLOGIN SE NAMREČ APLIKACIJA MINIMIRA, TOKEN DOBIMO, KO APLIKACIJO NAZAJ ODPREMO(TOREJ KO KONČAMO Z OAUTH2)
     //DROPBOX IN ONE DRIVE KONSTRUKTORJA
@@ -195,7 +184,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         gdo = new GlucoseDataOperations();
@@ -285,7 +274,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -362,6 +351,7 @@ public class MainActivity extends AppCompatActivity
                                             Intent intentMP = new Intent(Intent.ACTION_VIEW);
                                             intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
                                             getContext().startActivity(intentMP);
+                                            dropboxInstalled=false;
 
                                         }
                                         if (dropboxInstalled) {
@@ -369,7 +359,7 @@ public class MainActivity extends AppCompatActivity
                                             chooseFile.setPackage("com.dropbox.android");
                                             chooseFile.setType("*text/xml");
                                             chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                                            startActivityForResult(chooseFile, 69);
+                                            startActivityForResult(chooseFile, DROPBOXDOWNLOAD);
                                         }
                                     }
                                     else{
@@ -449,8 +439,6 @@ public class MainActivity extends AppCompatActivity
                   pm.getPackageInfo("com.microsoft.skydrive",PackageManager.GET_ACTIVITIES);
               } catch (PackageManager.NameNotFoundException e) {
                   //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
-
-                  //TODO: VPELJI LOGIKO, KI UPORABNIKA PRIPELJE DIREKTNO DO ONEDRIVE DA SE LAHKO PRIJAVI ITD.
                   //MOGOČI CRASHI!
                   Toast.makeText(getContext(),"OneDrive application missing", Toast.LENGTH_SHORT).show();
                   Intent intentMP = new Intent(Intent.ACTION_VIEW);
@@ -508,6 +496,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+
         System.out.println("CONNECTION FAILED " + connectionResult);
         if (connectionResult.hasResolution()) {
             try {
@@ -516,7 +506,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this,"Unable to connect to Google",Toast.LENGTH_SHORT).show();
             }
         } else {
-            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
+            apiAvailability.getErrorDialog(this, GOOGLEERRORRESULT, GOOGLEERRORREQUEST).show();
 
         }
     }
@@ -533,14 +523,11 @@ public class MainActivity extends AppCompatActivity
             handleSignInResult(result);
         }
         //KODA SE IZVEDE VEDNO KO KONČAMO Z INTENTSENDERJEM(IZBIRA DATOTEK, TAKO PRI DOWNLOADU KOT PRI UPLOADU)
-        //DOWNLOADFROMDRIVE
-        //GOOGLE DOWNLOADDRIVE RQCODE = 2
-        //DROPBOX RQCODE = 69
-        //ONEDRIVE RQCODE = ??
-        if(requestCode == 2){
+
+        if(requestCode == GOOGLEDRIVEDOWNLOAD){
 
                 try{
-                    mDriveID  = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
+                    DriveId mDriveID = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
                     System.out.println("ONACTIVITY DRIVE ID " + mDriveID);
                     DriveFile file = mDriveID.asDriveFile();
                     file.open(mGoogleApiClient,DriveFile.MODE_READ_ONLY,null).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
@@ -578,26 +565,38 @@ public class MainActivity extends AppCompatActivity
                 }
 
         }
-        if(requestCode==3){
+        if(requestCode==GOOGLEDRIVEUPLOAD){
             System.out.println("gDRIVE UPLOAD DATA" + data);
             System.out.println(resultCode);
             if(resultCode==-1){
                 Toast.makeText(getContext(),"Google Drive upload successful",Toast.LENGTH_SHORT).show();
+                xmlChanged=0;
+            }
+            else{
+                Toast.makeText(getContext(),"Google Drive upload unsuccessful",Toast.LENGTH_SHORT).show();
+
             }
         }
 
-        if(requestCode ==69) {
+        if(requestCode == DROPBOXDOWNLOAD||requestCode==ONEDRIVEDOWNLOAD) {
             Intent intent = getIntent();
             System.out.println("EXTRAS" + intent.getExtras());
-            System.out.println("DROPBOX DATA " + data.getData());
             Uri uri = data.getData();
             if(data.getData()!=null){
                 gdo.getContentsFromURI(uri,getContentResolver(),getContext());
                 gdo.parseXML(getContext(),date.getText().toString());
             }
+            else{
+                Toast.makeText(getContext(),"Empty XML file",Toast.LENGTH_LONG).show();
+            }
 
 
 
+        }
+        //KO SE ZAŽENE DROPBOXUPLOAD ALI ONEDRIVEUPLOAD POMENI, DA JE UPORABNIK SHRANIL SVOJ XML
+        //NE DA SE PREVERITI ALI JE UPORABNIK LE ZAGNAL ALI JE ZARES SHRANIL
+        if(requestCode==DROPBOXUPLOAD||requestCode==ONEDRIVEUPLOAD){
+            xmlChanged = 0;
         }
 
         try {
@@ -892,8 +891,14 @@ public class MainActivity extends AppCompatActivity
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
                                 }
-                                InputStreamReader isr = new InputStreamReader(fis);
-                                BufferedReader bufferedReader = new BufferedReader(isr);
+                                InputStreamReader isr = null;
+                                if (fis != null) {
+                                    isr = new InputStreamReader(fis);
+                                }
+                                BufferedReader bufferedReader = null;
+                                if (isr != null) {
+                                    bufferedReader = new BufferedReader(isr);
+                                }
                                 StringBuilder sb = new StringBuilder();
                                 String line;
                                 try {
@@ -912,7 +917,7 @@ public class MainActivity extends AppCompatActivity
 
                                 if (Build.VERSION.SDK_INT > 16) {
 
-                                    boolean dropboxInstalled = true;
+                                    boolean oneDriveInstalled = true;
                                     try {
                                         pm.getPackageInfo("com.dropbox.android", PackageManager.GET_ACTIVITIES);
                                     } catch (PackageManager.NameNotFoundException e) {
@@ -921,15 +926,16 @@ public class MainActivity extends AppCompatActivity
                                         Intent intentMP = new Intent(Intent.ACTION_VIEW);
                                         intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
                                         getContext().startActivity(intentMP);
+                                        oneDriveInstalled = false;
 
                                     }
-                                    if (dropboxInstalled) {
+                                    if (oneDriveInstalled) {
                                         Intent intent = new Intent(Intent.ACTION_SEND);
                                         intent.setType("text/xml");
                                         intent.setPackage("com.dropbox.android");
                                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                         intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-                                        getContext().startActivity(Intent.createChooser(intent, "Upload to Dropbox"));
+                                        startActivityForResult(Intent.createChooser(intent, "Upload to Dropbox"),DROPBOXUPLOAD);
                                     }
                                 }
                                 else{
@@ -966,8 +972,10 @@ public class MainActivity extends AppCompatActivity
                                         intentOD.setType("text/xml");
                                         intentOD.setPackage("com.microsoft.skydrive");
                                         intentOD.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
                                         intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-                                        getContext().startActivity(Intent.createChooser(intentOD, "Upload to OneDrive"));
+
+                                        startActivityForResult(Intent.createChooser(intentOD, "Upload to OneDrive"),ONEDRIVEUPLOAD);
                                     }
                                 }
                                 else{

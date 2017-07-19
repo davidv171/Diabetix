@@ -2,6 +2,7 @@ package david.projectclouds;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.sax.RootElement;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -50,18 +52,18 @@ import javax.xml.transform.stream.StreamResult;
  * Created by david on 24.6.2017.
  */
 
-public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.MyViewHolder> {
+ class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.MyViewHolder> {
     private List<GlucoseData> glucoseDataList;
     //CONTEXT ENABLES AN ALERTBUILDER TO BE CREATED
     //CONSTRUCTOR CALLED INSIDE GLUCOSEDATAOPERATIONS INSIDE THE METHOD PREPAREDATA
     private Context context;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView concentration1;
-        public TextView time1;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView concentration1;
+        TextView time1;
 
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
             concentration1 = (TextView) view.findViewById(R.id.Concentration1);
             time1 = (TextView) view.findViewById(R.id.Time1);
@@ -72,7 +74,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
 
     }
 
-    public GlucoseDataAdapter(List<GlucoseData> glucoseDataList, Context context) {
+    GlucoseDataAdapter(List<GlucoseData> glucoseDataList, Context context) {
         this.glucoseDataList = glucoseDataList;
         this.context = context;
     }
@@ -88,13 +90,13 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
     }
 
     @Override
-    public void onBindViewHolder(GlucoseDataAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(GlucoseDataAdapter.MyViewHolder holder,  int position) {
         final GlucoseData glucoseData = glucoseDataList.get(position);
         holder.concentration1.setText(glucoseData.getConcentration1());
         holder.time1.setText(glucoseData.getTime1());
+        final int position1 = position;
         //LONG CLICK ON CONCENTRATION OR TIME LETS YOU EDIT THOSE VALUES
         //USING CLASS CONTEXT VARIABLE AND ONLONGCLICKS
-        //TODO: V XMLU SPREMENI VRSTNI RED GLEDE NA ČAS, PRAV TAKO SPREMEMBE SHRANI V XML
         holder.concentration1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -107,13 +109,15 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 builder.setView(input);
-
+                input.setInputType(InputType.TYPE_CLASS_NUMBER |
+                        InputType.TYPE_NUMBER_FLAG_DECIMAL |
+                        InputType.TYPE_NUMBER_FLAG_SIGNED);
 // Set up the buttons
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String newValue = input.getText().toString();
-                        glucoseDataList.get(position).setConcentration1(newValue);
+                        glucoseDataList.get(position1).setConcentration1(newValue);
 
                         final Calendar c = Calendar.getInstance();
                         int mYear = c.get(Calendar.YEAR);
@@ -125,7 +129,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                         if(!(glucoseDataList.get(0).getDate()==null)){
                             date = glucoseDataList.get(0).getDate();
                         }
-                        editNode(position, newValue, "concentration", date);
+                        editNode(position1, newValue, "concentration", date);
                         notifyDataSetChanged();
                     }
                 });
@@ -160,7 +164,7 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String newValue = input.getText().toString();
-                        glucoseDataList.get(position).setTime1(newValue);
+                        glucoseDataList.get(position1).setTime1(newValue);
                         final Calendar c = Calendar.getInstance();
                         int mYear = c.get(Calendar.YEAR);
                         int mMonth = c.get(Calendar.MONTH)+1;
@@ -174,9 +178,8 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                             date = glucoseDataList.get(0).getDate();
                         }
                         System.out.println("DATE V EDIT" + date);
-                        editNode(position, newValue, "time", date);
+                        editNode(position1, newValue, "time", date);
 
-                        sortData();
                         notifyDataSetChanged();
                     }
                 });
@@ -196,30 +199,17 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
 
     }
 
-    public void sortData() {
-        //TODO: SORTIRAJ XML
-       /* Collections.sort(glucoseDataList, new Comparator<GlucoseData>() {
-            @Override
-            public int compare(GlucoseData o1, GlucoseData o2) {
-                System.out.println("o1" + o1.getTime1());
-                System.out.println("o2" + o2.getTime1());
-                return o1.getTime1().compareTo(o2.getTime1());
-            }
-        });*/
-
-    }
 
     @Override
     public int getItemCount() {
         return glucoseDataList.size();
     }
-    //TODO: ZOPTIMIZIRAJ, INDEXA NE RABIŠ VREDNOST SE SPREMINJA NA INDEXU V ARRAYLISTU IZ UREJENEGA XML-A
     //METODA, KI SPREMENI VREDNOST ENEGA ATRIBUTA
     //SPREMEMBA JE MOŽNA LE NA DANAŠNJI DATUM
     //INDEX POVE KATERI NODE SMO SPREMENILI
     //NEW VALUE JE NOVA VREDNOST ATRIBUTA
     //ATTRIBUTE NAM POVE KATERI ATTRIBUTE SMO SPREMENILI
-    public void editNode(int index, String newValue, String attribute, String currentDate) {
+    private void editNode(int index, String newValue, String attribute, String currentDate) {
         MainActivity.xmlChanged++;
         Document doc = null;
         //Create instance of DocumentBuilderFactory
@@ -242,20 +232,36 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
         }
 
         try {
-            doc = parser.parse(is);
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            if (parser != null) {
+                doc = parser.parse(is);
+            }
+            else{
+                Toast.makeText(context,"File error",Toast.LENGTH_LONG).show();
+            }
+        } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
         //Z INDEXOM J POSKRBIMO DA SAMO ENKRAT NASTAVIMO VREDNOST NODE-A KO NASTAVLJAMO KONCENTRACIJO
         int j = 0;
         //ROOT XML - > V XML-u ELEMENT DIABETIX, VSEBUJE SAMO ENEGA OTROKA-> ID
-        Node rootXML = doc.getDocumentElement();
-        NodeList allDates = doc.getElementsByTagName("date");
-        Node id = rootXML.getFirstChild();
+        Node rootXML = null;
+        if (doc != null) {
+            rootXML = doc.getDocumentElement();
+        }
+        else{
+            Toast.makeText(context,"File error",Toast.LENGTH_LONG).show();
 
-        Node node = null;
+        }
+        NodeList allDates = null;
+        if (doc != null) {
+            allDates = doc.getElementsByTagName("date");
+        }
+        Node id = null;
+        if (rootXML != null) {
+            id = rootXML.getFirstChild();
+        }
+
+        Node node;
         ArrayList<GlucoseData>timeArraylist = new ArrayList<>();
         //Z INDEXOM DNEVA POSKRBIMO, DA ZA NAZAJ NE MOREMO SPREMINJATI KONCENTRACIJE
         int indexDneva=0;
@@ -264,12 +270,18 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                 //USTVARIMO POMOŽNI ARRAYLIST, GLEDE NA TE VREDNOSTI PONOVNO NAPIŠEMO RELEVANTNI DEL XML
 
                 if(attribute.equals("concentration")) {
-                    //TODO SPREMENI ALGORITEM ZA CONCENTRATION EDIT
-                            System.out.println("TUKAJ SEM");
-                            node = allDates.item(i);
-                            GlucoseData nl = new GlucoseData(((Element) allDates.item(i)).getAttribute("concentration"),((Element) allDates.item(i)).getAttribute("time"),((Element) allDates.item(i)).getAttribute("date"));
-                            timeArraylist.add(nl);
-                            id.removeChild(node);
+                    System.out.println("CONCENTRATIONNNNNNNNNN");
+                    System.out.println(indexDneva);
+                            if(indexDneva==0) {
+                                node = allDates.item(i+index);
+                                ((Element)node).setAttribute("concentration",newValue);
+                                //NAJDI NA KATEREM MESTU JE VREDNOST KI JO ŽELIMO SPREMENITI IN JO SPREMENI
+                                glucoseDataList.get(i+index).setConcentration1(newValue);
+                                notifyDataSetChanged();
+                                System.out.println("NEW VALUE" + ((Element) node).getAttributeNode("concentration").getValue());
+                            }
+                    indexDneva++;
+
 
 
 
@@ -277,19 +289,18 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
                 }
                 if(attribute.equals("time")){
                     node = allDates.item(i);
+
                     GlucoseData nl = new GlucoseData(((Element) allDates.item(i)).getAttribute("concentration"),((Element) allDates.item(i)).getAttribute("time"),((Element) allDates.item(i)).getAttribute("date"));
                     timeArraylist.add(nl);
                     id.removeChild(node);
-                    System.out.println("IZBRIŠEM");
+
                 }
             }
         }
-        if(attribute.equals("concentration")){
-            timeArraylist.get(index).setConcentration1(newValue);
 
-        }
         if(attribute.equals("time")) {
             timeArraylist.get(index).setTime1(newValue);
+
         }
 
             for (int x = 0; x < glucoseDataList.size(); x++) {
@@ -307,15 +318,13 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
 
 
             for (int array = 0; array < timeArraylist.size(); array++) {
-                System.out.println("PIŠEM");
-
                 Element newChild = doc.createElement("date");
                 newChild.setAttribute("date", timeArraylist.get(array).getDate());
                 newChild.setAttribute("concentration", timeArraylist.get(array).getConcentration1());
                 newChild.setAttribute("time", timeArraylist.get(array).getTime1());
-
                 id.appendChild(newChild);
-                System.out.println("ZADNJI CHILD" + id.getLastChild().getAttributes().item(2).getTextContent());
+                notifyDataSetChanged();
+
             }
 
 
@@ -329,11 +338,13 @@ public class GlucoseDataAdapter extends RecyclerView.Adapter<GlucoseDataAdapter.
         Source input = new DOMSource(doc);
 
         try {
-            transformer.transform(input, output);
+            if (transformer != null) {
+                transformer.transform(input, output);
+            }
         } catch (TransformerException e) {
             e.printStackTrace();
         }
-        
+
 
 }
 

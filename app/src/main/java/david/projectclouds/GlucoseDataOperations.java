@@ -64,16 +64,16 @@ import javax.xml.transform.stream.StreamResult;
  * Created by david on 24.6.2017.
  */
 
-public class GlucoseDataOperations {
+ class GlucoseDataOperations {
     private List<GlucoseData> glucoseDataList = new ArrayList<>();
     private String lastID;
     private GlucoseDataAdapter mAdapter;
     private File file;
     private Document doc;
-    public GlucoseDataOperations(){
+     GlucoseDataOperations(){
 
     }
-    public void prepareGlucoseListData(RecyclerView recyclerView,Context context){
+    void prepareGlucoseListData(RecyclerView recyclerView,Context context){
 
         mAdapter = new GlucoseDataAdapter(glucoseDataList,context);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
@@ -102,8 +102,7 @@ public class GlucoseDataOperations {
     }
     //METODA S KATERO TRI INTEGERJE PRETVORIMO V STRING, PRIPRAVLJEN NA TEXTVIEW
     String dateAppender(int day, int month, int year){
-        String date = (String.valueOf(day) + "." + String.valueOf(month) + "." + String.valueOf(year));
-        return date;
+        return (String.valueOf(day) + "." + String.valueOf(month) + "." + String.valueOf(year));
     }
 
 
@@ -118,6 +117,8 @@ public class GlucoseDataOperations {
         } catch (FileNotFoundException e) {
             try {
                 file.createNewFile();
+                is = new FileInputStream(new File(context.getExternalFilesDir("diabetix"), "Diabetix.xml"));
+
                 System.out.println("CREATING NEW FILE");
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -135,25 +136,31 @@ public class GlucoseDataOperations {
             e.printStackTrace();
         }
         try {
-            myparser = xmlFactoryObject.newPullParser();
+            if (xmlFactoryObject != null) {
+                myparser = xmlFactoryObject.newPullParser();
+            }
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
         try {
-            myparser.setInput(is, null);
+            if (myparser != null) {
+                myparser.setInput(is, null);
+            }
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
         int event = 0;
         try {
-            event = myparser.getEventType();
+            if (myparser != null) {
+                event = myparser.getEventType();
+            }
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
         String date;
-        String glucose = null;
-        String time = null;
-        String id = null;
+        String glucose;
+        String time;
+        String id;
 
 
             while (event != XmlPullParser.END_DOCUMENT) {
@@ -198,15 +205,11 @@ public class GlucoseDataOperations {
                 }
                 try {
                     event = myparser.next();
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (XmlPullParserException | IOException e) {
                     e.printStackTrace();
                 }
 
             }
-            //VEDNO KO PREBEREMO PODATKE JIH TUDI SORTIRAMO
-            mAdapter.sortData();
 
 
 
@@ -265,7 +268,6 @@ public class GlucoseDataOperations {
                 newChild.appendChild(newNewChild);
 
                 System.out.println("NI DATOTEKE" + doc.getElementsByTagName("id").getLength());
-                System.out.println("domDate " + domDate);
 
             }
         else{
@@ -327,9 +329,6 @@ public class GlucoseDataOperations {
 
 
 
-public void deleteFile(){
-   this.file.delete();
-}
 //IZ CONTENTA, KI JE REZULTAT INTENTA(DATA V ONRESULT) PREBEREMO VSEBINO DATOTEKE
     //KO VSEBINO PREBEREMO AVTOMATSKO KLIČEMO METODO WRITETOFILE, KI PREBRANO VSEBINO NAPIŠE V NAŠO DATOTEKO DIABETIX.XML
     //GOOGLE DRIVE IMA ŽE DEFINIRANO METODO ZA PRIDOBITEV VSEBINE ZATO NAD GOOGLE DRIVEOM KLIČEMO LE WRITETOFILE
@@ -344,8 +343,10 @@ void getContentsFromURI(Uri uri, ContentResolver contentResolver, Context contex
         StringBuilder builder = new StringBuilder();
         String line;
         try {
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
+            if (reader != null) {
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -370,28 +371,31 @@ void getContentsFromURI(Uri uri, ContentResolver contentResolver, Context contex
         StringBuilder builder = new StringBuilder();
         String line;
         try {
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
+            if (reader != null) {
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String contentsAsString = builder.toString();
-        return contentsAsString;
+        return builder.toString();
 
     }
     void writeToFile(String xml){
         Writer writer = null;
         try {
             writer = new OutputStreamWriter(new FileOutputStream(this.file),"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
-            writer.write(xml);
-            writer.close();
+            if (writer != null) {
+                writer.write(xml);
+            }
+            if (writer != null) {
+                writer.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

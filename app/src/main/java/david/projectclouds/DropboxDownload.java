@@ -30,14 +30,13 @@ import static android.support.v4.app.ActivityCompat.startActivityForResult;
  * Created by david on 28.5.2017.
  */
 
-public class DropboxDownload extends AsyncTask {
-    DropboxAuthentication da = new DropboxAuthentication();
-    Context context;
-    public DropboxDownload(Context context){
+class DropboxDownload extends AsyncTask {
+    private DropboxAuthentication da = new DropboxAuthentication();
+    private Context context;
+    DropboxDownload(Context context){
         this.context = context;
     }
     protected Object doInBackground(Object[] params) {
-        //TODO: DOWNLOAD FROM DROPBOX, ČE MOŽNO, DA SI UPORABNIK IZBERE DATOTEKO, NI PA NUJNO, SAJ OVERWRITEAMO AVTOMATSKO
         //POLEK OVERWRITEANJA SMO TUDI VEDNO V ISTI MAPI
         //GLEDE NA TO DA SHRANJUJEMO AVTOMATSKO BREZ GRAFIČNEGA VMESNIKA NI POTREBE PO GRAFIČNEM VMESNIKU ZA IZBIRANJE
         SharedPreferences sp = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
@@ -47,7 +46,7 @@ public class DropboxDownload extends AsyncTask {
         try {
 
 
-            InputStream inputStream =  da.getClient(token).files().downloadBuilder("/Diabetix.xml").start().getInputStream();
+            InputStream inputStream =  DropboxAuthentication.getClient(token).files().downloadBuilder("/Diabetix.xml").start().getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder total = new StringBuilder();
             String line;
@@ -56,8 +55,7 @@ public class DropboxDownload extends AsyncTask {
             }
 
             System.out.println("INPUT STREAM "+  total);
-            //TODO: INPUTSTREAM UPORABI, SHRANI GA V REALM
-            //TODO: ZRIHTAJ REALM, ALI PA UPORABI LOKALNO DATOTEKO(NOT PREFERRED)
+
 
             } catch (DownloadErrorException e) {
                 Toast.makeText(context,"Download error",Toast.LENGTH_LONG).show();
