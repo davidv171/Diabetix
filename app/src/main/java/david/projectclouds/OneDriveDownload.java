@@ -16,7 +16,6 @@ class OneDriveDownload {
     private String ONEDRIVE_APP_ID = "afbdf902-f875-4c83-b37f-bc36e1db48de";
     void startFilePicker(Context context){
         mPicker = Picker.createPicker(ONEDRIVE_APP_ID);
-       // mPicker.startPicking((Activity)context, LinkType.WebViewLink);
         mPicker.startPicking((Activity)context,LinkType.WebViewLink);
 
     }

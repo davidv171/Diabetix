@@ -1,163 +1,61 @@
 package david.projectclouds;
 
-import android.*;
 import android.Manifest;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.ClipData;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.ParseException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.DropBoxManager;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dropbox.core.v2.DbxClientV2;
-import com.google.android.gms.auth.api.Auth;
-
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.Api;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveApi;
-import com.google.android.gms.drive.DriveContents;
-import com.google.android.gms.drive.DriveFile;
-import com.google.android.gms.drive.DriveFolder;
-import com.google.android.gms.drive.DriveId;
-import com.google.android.gms.drive.Metadata;
-import com.google.android.gms.drive.MetadataBuffer;
-import com.google.android.gms.drive.MetadataChangeSet;
-import com.google.android.gms.drive.OpenFileActivityBuilder;
-import com.google.android.gms.drive.query.Filter;
-import com.google.android.gms.drive.query.Filters;
-import com.google.android.gms.drive.query.Query;
-import com.google.android.gms.drive.query.SearchableField;
-import com.google.android.gms.tasks.RuntimeExecutionException;
-import com.microsoft.onedrivesdk.picker.IPickerResult;
-import com.microsoft.onedrivesdk.saver.SaverException;
 
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SharedPreferences.OnSharedPreferenceChangeListener{
+        private int CLOUD_DOWNLOAD = 1;
+        //TODO: CHANGE ICON BASED ON DEFAULT
 
-        private int ONEDRIVEUPLOAD = 1;
-        private int DROPBOXUPLOAD = 2;
-        private int GOOGLEDRIVEUPLOAD = 3;
-        private int ONEDRIVEDOWNLOAD = 4;
-        private int DROPBOXDOWNLOAD = 5;
-        private int GOOGLEDRIVEDOWNLOAD = 6;
-        private int GOOGLEERRORRESULT = 7;
-        private int GOOGLEERRORREQUEST = 8;
-
-
-        private static final int RC_SIGN_IN = 15;
-    private static final int RESOLVE_CONNECTION_REQUEST_CODE = 404;
-    private static final String TAG = "d2";
-    //STATIČNE SPREMENLJIVKE ZA KASNEJŠE LOČEVANJE MED BRANJEM ČE SMO DOBILI DOVOLJENJE OD UPORABNIKA
-    //ZA BRANJE ALI PISANJE DATOTEKE
-    //OBOJE JE POTREBNO ZA NORMALNO DELOVANJE PROGRAMA ZATO V PRIMERU, DA NE DOBIMO DOVOLJENJA APLIKACIJO VRNEMO NA GLAVNI MENI
     private static final int REQUEST_WRITE_PERMISSIONS = 21;
     private static final int REQUEST_READ_PERMISSIONS = 22;
-    //GOOGLE API KLIENTA, googleapiclient je za google drive, signin za google sign in
-    GoogleApiClient mGoogleApiClient;
-    GoogleApiClient mGoogleSignInApiClient;
-    private String fileName = "DiabetixBackup.txt";
-    //RAZRED DROPBOXAUTHENTICATION, KI VSEBUJE METODO ZA DROPBOX LOGIN
-        // POLEK LOGINA DOBI METODA ONRESUME ACCESSTOKEN!!!
-        //KO SE ZAČNE DROPBOXLOGIN SE NAMREČ APLIKACIJA MINIMIRA, TOKEN DOBIMO, KO APLIKACIJO NAZAJ ODPREMO(TOREJ KO KONČAMO Z OAUTH2)
-    //DROPBOX IN ONE DRIVE KONSTRUKTORJA
-    //DROPBOX KONSTRUKTOR JE USTVARJEN ZA AVTENTIKACIJO, TOREJ PRIDOBITEV ACCESS TOKENA, KI GA DOBIMO PREKO METODA DROPBOXLOGIN
-    //ACCESS TOKEN SE NATO PREKO METODE GETOAUTH2TOKEN SHRANI V SHARED PREFERENCES
-    //PRAV TAKO STA DEFINIRANI METODI, KI POSKRBITA ZA DOWNLOAD IN UPLOAD DATOTEKE
-    //DOWNLOADFROMDROPBOX in UPLOADFROMDROPBOX OBA USTVARITA ASYNCTASK(V RAZREDU DROPBOXUPLOAD ALI DOWNLOAD IN Z UPORABO KONTEKSTA MAINACTIVITY IN METODE
-    //GETCLIENT(TA METODA USTVARI DROPBOX KLIENT, NAD KATERIM KLIČEMO UPLOADBUILDERJA IN DOWNLOADBUILDERJA
-    //UPLOAD IN DOWNLOAD BUILDERJA STA DEFINIRANA V DROPBOX SDK IN POSKRBITA ZA UPLOAD IN DOWNLOAD DATOTEKE
-    //UPLOAD IN DOWNLOAD TO ALI FROM DROPBOX UPORABIMO  DIALOGBOXIH
-    DropboxAuthentication da = new DropboxAuthentication();
+    //SPREMENLJIVKE, V KATERIH SO IMENA PAKETOV, S KATERIMI, KO V METODI preferredCloudServiceChooser()
+    //IZBEREMO DEFAULT OBLAČNO STORITEV IN JO SHRANIMO V SHARED PREFERENCES, NATO PA UPORABIMO ZA ODPIRANJE INTENTA
 
-    //ZAENKRAT NE RABI NOBENE AVTENTIKACIJE
-    //TUKAJ ZAŽENEMO FILE PICKERJA
-    //V ON ACTIVITY RESULT PRIDOBIMO REZULTAT IZBIRE
-    OneDriveDownload oneDriveDownload = new OneDriveDownload();
-    OneDriveUpload oneDriveUpload = new OneDriveUpload();
+    private static final String googleDrivePM = "com.google.android.apps.docs";
+    private static final String dropboxPM = "com.dropbox.android";
+    private static final String oneDrivePM = "com.microsoft.skydrive";
+    private static final String MARKET_URL = "market://details?id=%s";
+
     private String concentration = null;
     private String time = null;
 
@@ -178,7 +76,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
-
 
 
 
@@ -237,23 +134,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        //GOOGLE SIGN IN API CLIENT IN API CLIENT ZA GOOGLE DRIVE.
-        final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this , this )
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .addOnConnectionFailedListener(this)
-                .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Drive.API)
-                .addScope(Drive.SCOPE_FILE)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .enableAutoManage(this,1,null)
-                .build();
-
 
 
 
@@ -285,7 +165,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -305,14 +184,42 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        System.out.println("MENU CREATED");
+        //TODO: OB SPREMEMBI SHARED PREFERENCES SPREMENI MENU IKONO
+        final Menu menu2 = menu;
+        getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE).registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                System.out.println("SHARED PREFERENCES CHANGED");
+                //KO SPREMENIMO DEFAULT CLOUD PROVIDERJA SPREMENIMO TUDI IKONO
+                //SE IZVRŠI OB USTVARJANJU MENUJA IN OB KLIKIH
+                sp = getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE);
+                String defaultCloud = sp.getString("default-cloud","null");
+                Drawable icon = null;
+                try {
+                    icon = getPackageManager().getApplicationIcon(defaultCloud);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("DEFAULT CLOUD" + defaultCloud);
+                if(!defaultCloud.equals("null")){
+
+                    MenuItem item2 = menu2.findItem(R.id.action_upload);
+                    item2.setIcon(icon);
+                    System.out.println("CHANGE ICON");
+
+                }
+            }
+        });
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -320,67 +227,30 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //UPORABNIK SI IZBERE KATEREGA IZMED TREH CLOUD SERVICEOV BO UPORABLJAL SKOZI
+            //GLEDE NA TO IZBIRO SE MU VEDNO ODPRE TISTI
 
-            return true;
+            preferredCloudServiceChooser();
+
+
         }
         if(id == R.id.action_import){
 
-            List<String> list = Arrays.asList("Google Drive", "Dropbox", "OneDrive");
-            CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-            System.out.println(Arrays.toString(cs)); // [foo, bar, waa]
-            new AlertDialog.Builder(this)
-                    .setTitle("Choose cloud service")
-                    .setItems(cs, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
-                                case 0: downloadFromDrive();
-                                    break;
-                                case 1:
-                                    //PREVERJAMO ČE SO POTREBNE APLIKACIJE INŠTALIRANE
-                                    //ČE NISO JIH PELJEMO NA MARKET PLACE
-                                    if (Build.VERSION.SDK_INT > 16) {
-
-                                        boolean dropboxInstalled = true;
-                                        PackageManager pm = getPackageManager();
-                                        try {
-                                            pm.getPackageInfo("com.dropbox.android", PackageManager.GET_ACTIVITIES);
-                                        } catch (PackageManager.NameNotFoundException e) {
-                                            //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
-                                            Toast.makeText(getContext(), "Dropbox application is missing", Toast.LENGTH_SHORT).show();
-                                            Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                                            intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
-                                            getContext().startActivity(intentMP);
-                                            dropboxInstalled=false;
-
-                                        }
-                                        if (dropboxInstalled) {
-                                            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-                                            chooseFile.setPackage("com.dropbox.android");
-                                            chooseFile.setType("*text/xml");
-                                            chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                                            startActivityForResult(chooseFile, DROPBOXDOWNLOAD);
-                                        }
-                                    }
-                                    else{
-                                        da.downloadFromDropbox(getApplicationContext());
-
-                                    }
-                                    break;
-                                //UPORABIMO MAINACTIVITY.THIS KER KOT APPLICATIONCONTEXT NE PASSAMO ACTVITIY AMPAK APPLICATION
-                                case 2: oneDriveDownload.startFilePicker(MainActivity.this);
-                                    break;
-                            }
-                        }
-                    })
-
-                    .setIcon(android.R.drawable.ic_menu_info_details)
-                    .show();
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("text/*");
+            sp = getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE);
+            String defaultCloud = sp.getString("default-cloud","null");
+            System.out.print("DEF CLOUD" +  defaultCloud);
+            if(!defaultCloud.equals("null")){
+                intent.setPackage(defaultCloud);
+            }
+            startActivityForResult(Intent.createChooser(intent,"Pick a file!"),CLOUD_DOWNLOAD);
 
         }
         if (id == R.id.action_upload){
+        //SHARE BUTTON INSTEAD
 
-          createCloudChooser();
+            createCloudChooser();
         }
 
         return super.onOptionsItemSelected(item);
@@ -394,29 +264,38 @@ public class MainActivity extends AppCompatActivity
 
 
           if (id == R.id.gdrive) {
-              System.out.println("GDRIVE CLICKED");
-              //IZBRIŠE DEFAULT RAČUN IN PONOVNO UPORABNIKU PONUDI DIALOG
-              //S KATERIM SI LAHKO IZBERE NOVI RAČUN
-              mGoogleSignInApiClient.clearDefaultAccountAndReconnect();
-              Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleSignInApiClient);
-              startActivityForResult(signInIntent, RC_SIGN_IN);
-
+              //ČE JE INŠTALIRANO OBJAVI
+              //ČE NI INŠTALIRANO PELJI DO MARKETA
+              boolean googleDriveInstalled = true;
+              PackageManager pm = getPackageManager();
+              try {
+                  pm.getPackageInfo(googleDrivePM, PackageManager.GET_ACTIVITIES);
+              } catch (PackageManager.NameNotFoundException e) {
+                  //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
+                  Toast.makeText(getContext(), "Google Drive application missing", Toast.LENGTH_SHORT).show();
+                  Intent intentMP = new Intent(Intent.ACTION_VIEW);
+                  intentMP.setData(Uri.parse(String.format(MARKET_URL, googleDrivePM)));
+                  getContext().startActivity(intentMP);
+                  googleDriveInstalled=false;
+              }
+              if (googleDriveInstalled) {
+                  Toast.makeText(getContext(), "Google Drive is installed!", Toast.LENGTH_SHORT).show();
+              }
         } else if (id == R.id.dropbox) {
               // OB KLIKU NA GUMB IZVEDEMO LOGIN SEKVENCO ZA DROPBOX
               // KER NAS DROPBOX LOGIN MINIMIRA IZ APLIKACIJE DOBIMO OAUTH2 TOKEN V ONRESUME
                 //TRENUTNO USELESS, KER REŠUJEMO Z INTENTI
 
-              if (Build.VERSION.SDK_INT > 16) {
 
                   boolean dropboxInstalled = true;
                   PackageManager pm = getPackageManager();
                   try {
-                      pm.getPackageInfo("com.dropbox.android", PackageManager.GET_ACTIVITIES);
+                      pm.getPackageInfo(dropboxPM, PackageManager.GET_ACTIVITIES);
                   } catch (PackageManager.NameNotFoundException e) {
                       //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
                       Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
                       Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                      intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
+                      intentMP.setData(Uri.parse(String.format(MARKET_URL, dropboxPM)));
                       getContext().startActivity(intentMP);
                         dropboxInstalled=false;
                   }
@@ -425,24 +304,21 @@ public class MainActivity extends AppCompatActivity
                   }
 
               }
-              else{
-                  da.dropboxLogin(this);
-
-              }
 
 
 
-        } else if (id == R.id.odrive) {
+
+        else if (id == R.id.odrive) {
               boolean odriveInstalled = true;
               PackageManager pm = getPackageManager();
               try {
-                  pm.getPackageInfo("com.microsoft.skydrive",PackageManager.GET_ACTIVITIES);
+                  pm.getPackageInfo(oneDrivePM,PackageManager.GET_ACTIVITIES);
               } catch (PackageManager.NameNotFoundException e) {
                   //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
                   //MOGOČI CRASHI!
                   Toast.makeText(getContext(),"OneDrive application missing", Toast.LENGTH_SHORT).show();
                   Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                  intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.microsoft.skydrive")));
+                  intentMP.setData(Uri.parse(String.format(MARKET_URL, oneDrivePM)));
                   getContext().startActivity(intentMP);
                   odriveInstalled=false;
 
@@ -484,250 +360,34 @@ public class MainActivity extends AppCompatActivity
     }
         public void onResume(){
             super.onResume();
+
             //SHRANIMO V SHARED PREFERENCES ZA KASNEJŠO UPORABO
             //IZVEDE SE VEDNO, KO APLIKACIJO MINIMIRAMO
-            if(da.getOAuth2Token()!=null) {
-                sp = this.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("dropbox-token", da.getOAuth2Token());
-                editor.apply();
-            }
-        }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-
-        System.out.println("CONNECTION FAILED " + connectionResult);
-        if (connectionResult.hasResolution()) {
-            try {
-                connectionResult.startResolutionForResult(this, RESOLVE_CONNECTION_REQUEST_CODE);
-            } catch (IntentSender.SendIntentException e) {
-                Toast.makeText(this,"Unable to connect to Google",Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            apiAvailability.getErrorDialog(this, GOOGLEERRORRESULT, GOOGLEERRORREQUEST).show();
 
         }
-    }
+
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("ONACTIVITY RESULT");
-        System.out.println("REQUEST CODE" + requestCode);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-        //KODA SE IZVEDE VEDNO KO KONČAMO Z INTENTSENDERJEM(IZBIRA DATOTEK, TAKO PRI DOWNLOADU KOT PRI UPLOADU)
-
-        if(requestCode == GOOGLEDRIVEDOWNLOAD){
-
-                try{
-                    DriveId mDriveID = data.getParcelableExtra(OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
-                    System.out.println("ONACTIVITY DRIVE ID " + mDriveID);
-                    DriveFile file = mDriveID.asDriveFile();
-                    file.open(mGoogleApiClient,DriveFile.MODE_READ_ONLY,null).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
-                        @Override
-                        public void onResult(@NonNull DriveApi.DriveContentsResult driveContentsResult) {
-                            if(driveContentsResult.getStatus().isSuccess()) {
-                                DriveContents contents =  driveContentsResult.getDriveContents();
-                                BufferedReader reader = new BufferedReader(new InputStreamReader(contents.getInputStream()));
-                                StringBuilder builder = new StringBuilder();
-                                String line;
-                                try {
-                                    while ((line = reader.readLine()) != null) {
-                                        builder.append(line);
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                String contentsAsString = builder.toString();
-
-                                System.out.println("VSEBINA:" + contentsAsString);
-                                gdo.writeToFile(contentsAsString);
-                                gdo.parseXML(getContext(),date.getText().toString());
-                            }
-                            else{
-                                System.out.println("FAIL");
-                            }
-                        }
-                    });
-
-
-
-                }
-                catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-
-        }
-        if(requestCode==GOOGLEDRIVEUPLOAD){
-            System.out.println("gDRIVE UPLOAD DATA" + data);
-            System.out.println(resultCode);
-            if(resultCode==-1){
-                Toast.makeText(getContext(),"Google Drive upload successful",Toast.LENGTH_SHORT).show();
-                xmlChanged=0;
-            }
-            else{
-                Toast.makeText(getContext(),"Google Drive upload unsuccessful",Toast.LENGTH_SHORT).show();
-
-            }
-        }
-
-        if(requestCode == DROPBOXDOWNLOAD||requestCode==ONEDRIVEDOWNLOAD) {
+        if(requestCode == CLOUD_DOWNLOAD){
             Intent intent = getIntent();
             System.out.println("EXTRAS" + intent.getExtras());
-            Uri uri = data.getData();
-            if(data.getData()!=null){
-                gdo.getContentsFromURI(uri,getContentResolver(),getContext());
-                gdo.parseXML(getContext(),date.getText().toString());
-            }
-            else{
-                Toast.makeText(getContext(),"Empty XML file",Toast.LENGTH_LONG).show();
-            }
+            if(data!=null) {
+                if (data.getData() != null) {
+                    Uri uri = data.getData();
+                    gdo.getContentsFromURI(uri, getContentResolver(), getContext());
 
-
-
-        }
-        //KO SE ZAŽENE DROPBOXUPLOAD ALI ONEDRIVEUPLOAD POMENI, DA JE UPORABNIK SHRANIL SVOJ XML
-        //NE DA SE PREVERITI ALI JE UPORABNIK LE ZAGNAL ALI JE ZARES SHRANIL
-        if(requestCode==DROPBOXUPLOAD||requestCode==ONEDRIVEUPLOAD){
-            xmlChanged = 0;
-        }
-
-        try {
-            IPickerResult result = oneDriveDownload.getFilePicker().getPickerResult(requestCode, resultCode, data);
-            // Handle the case if nothing was picked
-            Toast.makeText(getContext(),"Nothing was picked",Toast.LENGTH_SHORT);
-            if (result != null) {
-                // Do something with the picked file
-                Log.d("main", "Link to file '" + result.getName() + ": " + result.getLink());
-                return;
-            }
-        }
-        catch (NullPointerException e){
-            Log.d("main","File picker is null");
-        }
-
-        // Handle non-OneDrive picker request
-        super.onActivityResult(requestCode, resultCode, data);
-        // check that the file was successfully saved to OneDrive
-        try {
-            oneDriveUpload.getSaver().handleSave(requestCode, resultCode, data);
-            gdo.getContentsFromURI(data.getData(),getContentResolver(),getContext());
-            gdo.parseXML(getContext(),date.getText().toString());
-
-            System.out.println("ONE DRIVE DATA" + data);
-        } catch (final SaverException e) {
-            // Log error information
-            e.printStackTrace();
-            System.out.println("ERROR TYPE "+ e.getErrorType());
-            Toast.makeText(MainActivity.this,e.getErrorType().toString(), Toast.LENGTH_LONG).show();
-            System.out.println("DEBUG" + e.getDebugErrorInfo());
-        }
-        catch(NullPointerException e){
-            Log.d("main","ISaver == Null");
-
-        }
-
-    }
-
-    private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.getStatus());
-        if (result.isSuccess()) {
-            mGoogleSignInApiClient.connect();
-
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            Toast.makeText(this,"Google sign in successful!",Toast.LENGTH_SHORT).show();
-
-
-        } else {
-            Toast.makeText(this,"Google sign in unsuccessful!",Toast.LENGTH_SHORT).show();
-            System.out.println("SIGN IN FAILED");
-            // Signed out, show unauthenticated UI.
-
-        }
-    }
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void downloadFromDrive(){
-
-        //PRVO PREVERIMO AVTOMATSKO, ČE OBSTAJA NA GOOGLE DRIVE-U DATOTEKA Z IMENOM DIABETIXBACKUP(vedno enak file name, v Google Drive se sam zamenja)
-
-           //KO SE KONČNO POVEŽE, SE IZVEDE INTENTSENDER, KO INTENTSENDER ZAKLJUČIMO(izberemo SELECT), se izvede ONACTIVITYRESULT, KI PRIDOBI
-            //DRIVE ID IZBRANE DATOTEKE
-            if(mGoogleApiClient.isConnected()){
-                System.out.println("SuCCESS CONNECTION");
-                IntentSender intentSender = Drive.DriveApi.newOpenFileActivityBuilder().setMimeType(new String[]{"text/xml"}).build(mGoogleApiClient);
-
-                try{
-                    startIntentSenderForResult(intentSender,2,null,0,0,0);
-                } catch (IntentSender.SendIntentException e) {
-                    e.printStackTrace();
-                    Log.w(TAG, "Unable to send intent", e);
-
+                    gdo.parseXML(getContext(), date.getText().toString());
+                } else {
+                    Toast.makeText(getContext(), "Empty XML file", Toast.LENGTH_LONG).show();
                 }
             }
-
-    }
-
-    public void uploadToDrive(final String content){
-        Drive.DriveApi.newDriveContents(mGoogleApiClient)
-            .setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
-
-                @Override
-                public void onResult(@NonNull DriveApi.DriveContentsResult driveContentsResult) {
-                    if (!driveContentsResult.getStatus().isSuccess()) {
-                        Log.i(TAG, "Failed to create new contents.");
-                        System.out.println("TEST");
-                        Toast.makeText(MainActivity.this, "Failed to create new contents", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    Log.i(TAG, "Ready to create new contents.");
-                    DriveContents driveContents = driveContentsResult.getDriveContents();
-                    OutputStream outputStream = driveContents.getOutputStream();
-                    Writer writer = new OutputStreamWriter(outputStream);
-                    try {
-                        writer.write(content);
-                        writer.close();
-                    } catch (IOException e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-
-
-                    MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder().setMimeType("text/xml").setTitle(fileName).build();
-
-                    IntentSender intentSender = Drive.DriveApi.newCreateFileActivityBuilder().setInitialMetadata(metadataChangeSet).setInitialDriveContents(driveContentsResult.getDriveContents()).build(mGoogleApiClient);
-                    try{
-                        startIntentSenderForResult(intentSender,3,null,0,0,0);
-
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-
-                    }
-                }
-            });
-
-
-
-
-}
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        System.out.println("ON CONNECTED SE IZVEDE");
+        }
     }
 
 
-    @Override
-    public void onConnectionSuspended(int i) {
-        System.out.println("CONNECTION SUSPENDED");
-    }
 
     //PERMISSIONS
 
@@ -874,122 +534,71 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
     public void createCloudChooser(){
-        List<String> list = Arrays.asList("Google Drive", "Dropbox", "OneDrive");
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/xml");
+
+        sp = getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE);
+        String defaultCloud = sp.getString("default-cloud","null");
+        System.out.print("DEF CLOUD" +  defaultCloud);
+        if(!defaultCloud.equals("null")){
+            sharingIntent.setPackage(defaultCloud);
+        }
+        sharingIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+    }
+    public void preferredCloudServiceChooser(){
+        //PONUDI UPORABNIKU IZBIRO ENEGA IZMED TREH
+        List<String> list = Arrays.asList("Google Drive", "Dropbox", "OneDrive","None");
         CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-        System.out.println(Arrays.toString(cs));
+        System.out.println(Arrays.toString(cs)); // [foo, bar, waa]
+
         new AlertDialog.Builder(this)
-                .setTitle("Choose cloud service")
+                .setTitle("Choose your default cloud service")
                 .setItems(cs, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String izbira = "null";
+
                         switch (which){
                             case 0:
+                                izbira = googleDrivePM;
 
-                                FileInputStream fis = null;
-                                try {
-                                    fis = new FileInputStream(new File(getContext().getExternalFilesDir("diabetix"),"Diabetix.xml"));
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                }
-                                InputStreamReader isr = null;
-                                if (fis != null) {
-                                    isr = new InputStreamReader(fis);
-                                }
-                                BufferedReader bufferedReader = null;
-                                if (isr != null) {
-                                    bufferedReader = new BufferedReader(isr);
-                                }
-                                StringBuilder sb = new StringBuilder();
-                                String line;
-                                try {
-                                    while ((line = bufferedReader.readLine()) != null) {
-                                        sb.append(line);
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                String content = sb.toString();
-                                uploadToDrive(content);
                                 break;
                             case 1:
-                                //USTVARIMO DATOTEKO
-                                PackageManager pm = getPackageManager();
-
-                                if (Build.VERSION.SDK_INT > 16) {
-
-                                    boolean oneDriveInstalled = true;
-                                    try {
-                                        pm.getPackageInfo("com.dropbox.android", PackageManager.GET_ACTIVITIES);
-                                    } catch (PackageManager.NameNotFoundException e) {
-                                        //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
-                                        Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
-                                        Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                                        intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.dropbox.android")));
-                                        getContext().startActivity(intentMP);
-                                        oneDriveInstalled = false;
-
-                                    }
-                                    if (oneDriveInstalled) {
-                                        Intent intent = new Intent(Intent.ACTION_SEND);
-                                        intent.setType("text/xml");
-                                        intent.setPackage("com.dropbox.android");
-                                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-                                        startActivityForResult(Intent.createChooser(intent, "Upload to Dropbox"),DROPBOXUPLOAD);
-                                    }
-                                }
-                                else{
-                                    da.uploadToDropbox(gdo.returnFileContent(), getApplicationContext());
-
-                                }
-
-
+                                izbira=dropboxPM;
                                 break;
+                            //UPORABIMO MAINACTIVITY.THIS KER KOT APPLICATIONCONTEXT NE PASSAMO ACTVITIY AMPAK APPLICATION
                             case 2:
-                                Toast.makeText(getContext(),"You can only upload to your personal account, not business account, thanks Microsoft",Toast.LENGTH_SHORT).show();
-                                //USTVARIMO DATOTEKO
-
-                                //POMEMBNO, DA USTVARJAŠ FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                // file = new File(getApplicationContext().getExternalFilesDir("diabetix"),"Diabetix.xml");
-                                ///oneDriveUpload.uploadToOneDrive("<12-2-2017>6</12-2-2017>" , getContext(),file);
-                                //OBČASNI PROblEMI Z NALAGANJEM NA ŠOLSKI ONE DRIVE; OSEBNI DELUJE OK??
-                                if (Build.VERSION.SDK_INT > 16) {
-
-                                    pm = getPackageManager();
-                                    boolean odInstalled = true;
-                                    try {
-                                        pm.getPackageInfo("com.microsoft.skydrive", PackageManager.GET_ACTIVITIES);
-                                    } catch (PackageManager.NameNotFoundException e) {
-                                        //V PRIMERU DA NIMA INŠTALIRANO, GA PELJI DO MARKETPLACE
-                                        Toast.makeText(getContext(), "OneDrive application missing", Toast.LENGTH_SHORT).show();
-                                        Intent intentMP = new Intent(Intent.ACTION_VIEW);
-                                        intentMP.setData(Uri.parse(String.format("market://details?id=%s", "com.microsoft.skydrive")));
-                                        getContext().startActivity(intentMP);
-                                        odInstalled = false;
-                                    }
-                                    if (odInstalled) {
-                                        Intent intentOD = new Intent(Intent.ACTION_SEND);
-                                        intentOD.setType("text/xml");
-                                        intentOD.setPackage("com.microsoft.skydrive");
-                                        intentOD.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                                        intentOD.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "david.projectclouds.MainActivity", file));
-
-                                        startActivityForResult(Intent.createChooser(intentOD, "Upload to OneDrive"),ONEDRIVEUPLOAD);
-                                    }
-                                }
-                                else{
-                                    oneDriveUpload.uploadToOneDrive(gdo.returnFileContent(),getContext(),file);
-                                }
+                                izbira =oneDrivePM;
+                                break;
+                            case 3:
+                                izbira = "null";
+                                break;
+                            default:
+                                izbira = "null";
+                                Toast.makeText(getContext(),"Picking failure",Toast.LENGTH_SHORT);
                                 break;
                         }
+                        sp = getContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("default-cloud", izbira);
+                        editor.apply();
                     }
                 })
 
                 .setIcon(android.R.drawable.ic_menu_info_details)
                 .show();
+
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
+    }
 }
+
+
+
 

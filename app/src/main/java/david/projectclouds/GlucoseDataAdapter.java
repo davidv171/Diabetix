@@ -2,7 +2,6 @@ package david.projectclouds;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.sax.RootElement;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -13,23 +12,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -276,7 +269,7 @@ import javax.xml.transform.stream.StreamResult;
                                 node = allDates.item(i+index);
                                 ((Element)node).setAttribute("concentration",newValue);
                                 //NAJDI NA KATEREM MESTU JE VREDNOST KI JO ŽELIMO SPREMENITI IN JO SPREMENI
-                                glucoseDataList.get(i+index).setConcentration1(newValue);
+                                glucoseDataList.get(index).setConcentration1(newValue);
                                 notifyDataSetChanged();
                                 System.out.println("NEW VALUE" + ((Element) node).getAttributeNode("concentration").getValue());
                             }

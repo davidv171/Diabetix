@@ -1,9 +1,7 @@
 package david.projectclouds;
 
-import android.os.Parcel;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -12,7 +10,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -43,6 +40,8 @@ public class GraphActivity extends AppCompatActivity {
         System.out.println("DATE " + date);
         setContentView(R.layout.activity_graph);
         LineChart chart = (LineChart) findViewById(R.id.chart);
+        chart.getDescription().setEnabled(false);
+
         //IZ XML-A PRIDOBI VSE PODATKE TER JIH DAJ V ENOTEN ARRAYLIST
         ArrayList<GlucoseData>stats = new ArrayList<>();
         ArrayList<GlucoseData>statsToday = new ArrayList<>();
@@ -74,12 +73,7 @@ public class GraphActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Node rootXML = doc.getDocumentElement();
         NodeList allDates = doc.getElementsByTagName("date");
-        Node id = rootXML.getFirstChild();
-
-        Node node = null;
         ArrayList<GlucoseData> timeArraylist = new ArrayList<>();
         //Z INDEXOM DNEVA POSKRBIMO, DA ZA NAZAJ NE MOREMO SPREMINJATI KONCENTRACIJE
         int indexDneva = 0;
@@ -113,8 +107,10 @@ public class GraphActivity extends AppCompatActivity {
         LineDataSet dataSet = new LineDataSet(entries, date); // add entries to dataset
         dataSet.setColor(R.color.colorPrimary);
         dataSet.setValueTextColor(R.color.colorPrimary);
-
+        dataSet.setFillColor(R.color.colorPrimary);
         LineData lineData = new LineData(dataSet);
+        lineData.setValueTextColor(R.color.colorPrimary);
+
         chart.setData(lineData);
     }
 }

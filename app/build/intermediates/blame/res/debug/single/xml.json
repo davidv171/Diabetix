@@ -1,6 +1,22 @@
 [
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/xml/pref_data_sync.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/xml/pref_data_sync.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/xml/pref_notification.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/xml/pref_notification.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/xml/paths.xml",
         "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/xml/paths.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/xml/pref_headers.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/xml/pref_headers.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/xml/pref_general.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/xml/pref_general.xml"
     }
 ]

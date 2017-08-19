@@ -1,19 +1,19 @@
 [
     {
-        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
-        "source": "/home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/res/drawable/design_fab_background.xml"
-    },
-    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_seekbar_track_material.xml"
     },
     {
-        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
-        "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
+        "source": "/home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/res/drawable/design_fab_background.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_dark.xml",
@@ -28,8 +28,16 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_btn_default_mtrl_shape.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_onedrivesvg.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_onedrivesvg.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
         "source": "/home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_info_black_24dp.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_info_black_24dp.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
@@ -46,6 +54,10 @@
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_info_outline_black_24dp.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_info_outline_black_24dp.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
@@ -80,8 +92,16 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_vector_test.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_settings_black_24dp.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_settings_black_24dp.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_time.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_time.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ic_search_api_material.xml",
@@ -100,8 +120,20 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/notification_tile_bg.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_dropboxsvg.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_dropboxsvg.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_sync_black_24dp.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_sync_black_24dp.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_dark.xml",
         "source": "/home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/res/drawable/common_plus_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_glucose2.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_glucose2.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
@@ -110,6 +142,10 @@
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/navigation_empty_icon.xml",
         "source": "/home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/res/drawable/navigation_empty_icon.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_upload.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_upload.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
@@ -156,8 +192,16 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_ic_ab_back_material.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_glucose.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_glucose.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light.xml",
         "source": "/home/david/.android/build-cache/1092ec13a41ef1f5105b9d11dd65eca06a5b27d4/output/res/drawable/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_drivesvg.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_drivesvg.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/notification_bg.xml",
@@ -172,12 +216,24 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_cab_background_internal_bg.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_glucosew.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_glucosew.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_small_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_ratingbar_small_material.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_cloud_upload_black_24dp.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_cloud_upload_black_24dp.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_stats.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_stats.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ic_menu_overflow_material.xml",
@@ -192,6 +248,10 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_btn_borderless_material.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_notifications_black_24dp.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_notifications_black_24dp.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/design_bottom_navigation_item_background.xml",
         "source": "/home/david/.android/build-cache/ee2415d91cb26d559a7dd9166e743a94cde49175/output/res/drawable/design_bottom_navigation_item_background.xml"
     },
@@ -200,8 +260,16 @@
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_btn_colored_material.xml"
     },
     {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/ic_cloud.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/ic_cloud.xml"
+    },
+    {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_indicator_material.xml",
         "source": "/home/david/.android/build-cache/857a37c814ac7ca63d9d35d54e8194ad5e083ff1/output/res/drawable/abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/clock.xml",
+        "source": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/src/main/res/drawable/clock.xml"
     },
     {
         "merged": "/home/david/Documents/PROJEKTCLOUDS/ProjektClouds/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_light.xml",
