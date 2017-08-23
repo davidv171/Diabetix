@@ -188,33 +188,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         System.out.println("MENU CREATED");
-        //TODO: OB SPREMEMBI SHARED PREFERENCES SPREMENI MENU IKONO
+        setMenuIcon(menu);
         final Menu menu2 = menu;
         getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE).registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                System.out.println("SHARED PREFERENCES CHANGED");
-                //KO SPREMENIMO DEFAULT CLOUD PROVIDERJA SPREMENIMO TUDI IKONO
-                //SE IZVRŠI OB USTVARJANJU MENUJA IN OB KLIKIH
-                sp = getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE);
-                String defaultCloud = sp.getString("default-cloud","null");
-                Drawable icon = null;
-                try {
-                    icon = getPackageManager().getApplicationIcon(defaultCloud);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("DEFAULT CLOUD" + defaultCloud);
-                if(!defaultCloud.equals("null")){
-
-                    MenuItem item2 = menu2.findItem(R.id.action_upload);
-                    item2.setIcon(icon);
-                    System.out.println("CHANGE ICON");
-
-                }
+                setMenuIcon(menu2);
             }
         });
+
         return true;
+    }
+    public void setMenuIcon(Menu menu){
+        System.out.println("SHARED PREFERENCES CHANGED");
+        //KO SPREMENIMO DEFAULT CLOUD PROVIDERJA SPREMENIMO TUDI IKONO
+        //SE IZVRŠI OB USTVARJANJU MENUJA IN OB KLIKIH
+        sp = getContext().getSharedPreferences("prefs",Context.MODE_PRIVATE);
+        String defaultCloud = sp.getString("default-cloud","null");
+        Drawable icon = null;
+        try {
+            icon = getPackageManager().getApplicationIcon(defaultCloud);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("DEFAULT CLOUD" + defaultCloud);
+        if(!defaultCloud.equals("null")){
+
+            MenuItem item2 = menu.findItem(R.id.action_upload);
+            item2.setIcon(icon);
+            System.out.println("CHANGE ICON");
+
+        }
+
     }
 
     @Override
